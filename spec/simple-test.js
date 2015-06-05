@@ -1,5 +1,5 @@
 var user = require('../data/user');
 
-user.getById(1).then(function(rows){
+user.getById(2).then(function(rows){
   console.log(rows);
 });

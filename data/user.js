@@ -22,7 +22,8 @@ var user = function(){
 
     var connection = db();
     connection.connect();
-    connection.query('SELECT username from user LIMIT 2', function(err, rows, fields) {
+    var queryString = "SELECT username from user where user_id="+id;
+    connection.query(queryString, function(err, rows, fields) {
       connection.end();
       if (!err) {
         defer.fulfill(rows);
