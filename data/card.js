@@ -105,12 +105,28 @@ var card = function(){
     connection.connect();
     var queryString = "SELECT * from card ";
     connection.query(queryString, function(err, rows, fields) {
-      if (!err) {
-        defer.fulfill(rows);
-      } else {
+      if (err) {
         defer.reject(err);
         console.log('Error while performing Query.');
+      } else {
+        defer.fulfill(rows);
       }
+    });
+
+    connection.end();
+    return defer.promise;
+  };
+
+  var findCard = function(name){
+    var defer = Promise.pending();
+    var connection = db();
+    connection.connect();
+    var queryString = "SELECT * from card where card_name like '%"+name+"%'";
+    connection.query(queryString, function(err, result) {
+      if (err) {
+        defer.reject(err);
+        console.log('Error while performing Query.');
+      } else defer.fulfill(result);
     });
 
     connection.end();
@@ -121,7 +137,8 @@ var card = function(){
     addSet: addSet,
     getCard: getCard,
     addCard: addCard,
-    getAllCards: getAllCards
+    getAllCards: getAllCards,
+    findCard: findCard
   }
 };
 
