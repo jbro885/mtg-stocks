@@ -82,10 +82,29 @@ var card = function(){
     return defer.promise;
   };
 
+  var getAllCards = function(){
+    var defer = Promise.pending();
+    var connection = db();
+    connection.connect();
+    var queryString = "SELECT * from card ";
+    connection.query(queryString, function(err, rows, fields) {
+      if (!err) {
+        defer.fulfill(rows);
+      } else {
+        defer.reject(err);
+        console.log('Error while performing Query.');
+      }
+    });
+
+    connection.end();
+    return defer.promise;
+  };
+
   return {
     addSet: addSet,
     getCard: getCard,
-    addCard: addCard
+    addCard: addCard,
+    getAllCards: getAllCards
   }
 };
 
