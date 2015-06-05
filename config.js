@@ -1,8 +1,8 @@
 module.exports = {
   mysql : {
+    host : process.env.MYSQL_URL,
     user : process.env.MYSQL_USER,
-    pass : process.env.MYSQL_PASS,
-    url : process.env.MYSQL_URL,
+    password : process.env.MYSQL_PASS,
     database : process.env.MYSQL_DATABASE
   }
 };
