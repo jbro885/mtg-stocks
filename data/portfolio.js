@@ -53,7 +53,7 @@ var portfolio = function(){
 
     connection.query('SELECT 1 + 1 AS solution', function(err, rows, fields) {
       if (!err) {
-        console.log('You now have ' + rows[0].solution);
+        console.log('You removed ' + rows[0].solution + ' ' + cardname);
         defer.fulfill({"cardname": cardname, "quantity": rows[0].solution});
       } else {
         defer.reject(err);
@@ -74,7 +74,7 @@ var portfolio = function(){
 
     connection.query("SELECT 1 + 1 AS  quantity, 'jack' as cardname", function(err, rows, fields) {
       if (!err) {
-        console.log('You own ' + rows[0].solution);
+        console.log('Your portfolio contains ' + rows[0].quantity + ' of ' + rows[0].cardname);
         defer.fulfill([
           {"cardname":rows[0].cardname, "quantity":rows[0].quantity},
           {"cardname":rows[0].cardname, "quantity":rows[0].quantity}
