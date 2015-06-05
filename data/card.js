@@ -1,5 +1,5 @@
 var db = require('./database');
-var Promise = require('');
+var Promise = require('bluebird');
 
 var card = function(){
   var addSet = function(name){
@@ -73,10 +73,9 @@ var card = function(){
     var connection = db();
     connection.connect();
     var data = [id];
-    connection.query('select * from card where card_id = ?', data, function(err, rows, fields) {
+    connection.query('select * from card where cards_id = ?', data, function(err, rows, fields) {
       if (err) throw err;
       defer.resolve(rows);
-      console.log('The solution is: ', rows[0].solution);
     });
 
     connection.end();
