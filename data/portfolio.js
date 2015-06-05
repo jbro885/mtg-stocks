@@ -15,8 +15,8 @@ var portfolio = function(){
     //need to add to existing portfolio for this card
     connection.query('SELECT 1 + 1 AS solution', function(err, rows, fields) {
       if (!err) {
-        console.log('You now have ' + rows[0].solution);
-        defer.fulfill({'magic_add':5});
+        console.log('You now have ' + rows[0].solution + ' ' + cardname + ' cards');
+        defer.fulfill({"cardname": cardname, "quantity": rows[0].solution});
       } else {
         defer.reject(err);
         console.log('Error while performing Query.');
@@ -34,8 +34,8 @@ var portfolio = function(){
     //get quantity of this card in the user's existing portfolio
     connection.query('SELECT 1 + 1 AS solution', function(err, rows, fields) {
       if (!err) {
-        console.log('You now have ' + rows[0].solution);
-        defer.fulfill({'magic_get':6});
+        console.log('You own ' + rows[0].solution + ' of card ' + cardname);
+        defer.fulfill({"cardname": cardname, "quantity": rows[0].solution});
       } else {
         defer.reject(err);
         console.log('Error while performing Query.');
@@ -54,7 +54,7 @@ var portfolio = function(){
     connection.query('SELECT 1 + 1 AS solution', function(err, rows, fields) {
       if (!err) {
         console.log('You now have ' + rows[0].solution);
-        defer.fulfill({'magic_remove':7});
+        defer.fulfill({"cardname": cardname, "quantity": rows[0].solution});
       } else {
         defer.reject(err);
         console.log('Error while performing Query.');
@@ -72,10 +72,13 @@ var portfolio = function(){
     //get quantity of each card in the user's portfolio
     var defer = Promise.pending();
 
-    connection.query('SELECT 1 + 1 AS solution', function(err, rows, fields) {
+    connection.query("SELECT 1 + 1 AS  quantity, 'jack' as cardname", function(err, rows, fields) {
       if (!err) {
         console.log('You own ' + rows[0].solution);
-        defer.fulfill({'magic1':1, 'magic2':3});
+        defer.fulfill([
+          {"cardname":rows[0].cardname, "quantity":rows[0].quantity},
+          {"cardname":rows[0].cardname, "quantity":rows[0].quantity}
+        ]);
       } else {
         defer.reject(err);
         console.log('Error while performing Query.');
@@ -93,8 +96,8 @@ var portfolio = function(){
     //get quantity of this card in the user's existing portfolio
     connection.query('SELECT 1 + 1 AS solution', function(err, rows, fields) {
       if (!err) {
-        console.log('You now have ' + rows[0].solution);
-        defer.fulfill({'magic_remove':7});
+        console.log('You purchased ' + rows[0].solution + ' of card ' + cardname);
+        defer.fulfill({'cardname':cardname, 'quantity':rows[0].solution});
       } else {
         defer.reject(err);
         console.log('Error while performing Query.');
@@ -117,8 +120,8 @@ var portfolio = function(){
 
     connection.query('SELECT 1 + 1 AS solution', function(err, rows, fields) {
       if (!err) {
-        console.log('You now have ' + rows[0].solution);
-        defer.fulfill({'magic_remove':7});
+        console.log('You sold ' + rows[0].solution + ' of card ' + cardname);
+        defer.fulfill({'cardname': cardname, 'quantity':7});
       } else {
         defer.reject(err);
         console.log('Error while performing Query.');
