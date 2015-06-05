@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/nelson54/mtg-stocks.svg)](https://travis-ci.org/nelson54/mtg-stocks)
+
 ```
 # Check out the repository.
 npm install
