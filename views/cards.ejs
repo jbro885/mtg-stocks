@@ -18,6 +18,9 @@
   $('#card-table').dynatable({
     dataset: {
       records: cards,
+      features: {
+          pushState: false
+      },
       table: {
         defaultColumnIdStyle: 'underscore'
       }
