@@ -69,11 +69,12 @@ module.exports = (setName) ->
     .then (response) ->
       $ = cheerio.load response[1]
       #console.log(response[1])
-      $('div.bodyWrap table tr')
+      cards = $('div.bodyWrap table tr')
         .map () ->
           $r = $('a', this)
           rowToObject($r)
-            .get()
+        .get()
+
     .map (obj) ->
       if(obj.min)
         try
