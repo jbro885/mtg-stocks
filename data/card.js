@@ -135,7 +135,7 @@ var card = function(){
   return {
     addSet: addSet,
     getCard: getCard,
-    addCard: addCard,
+    addCards: addCards,
     getAllCards: getAllCards,
     batchAddSets: batchAddSets
   }
