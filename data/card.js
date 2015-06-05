@@ -60,28 +60,34 @@ var card = function(){
       )"
       , function(err, result) {
         if (err) throw err;
-
+        defer.fulfill(result.insertId)
         console.log('The solution is: ', rows[0].solution);
       });
 
     connection.end();
-    defer.promise;
+    return defer.promise;
   };
 
   var getCard = function(id){
+    var defer = Promise.pending();
     var connection = db();
     connection.connect();
-
-    connection.query('SELECT 1 + 1 AS solution', function(err, rows, fields) {
+    var data = [id];
+    connection.query('select * from card where card_id = ?', data, function(err, rows, fields) {
       if (err) throw err;
-
+      defer.resolve(rows);
       console.log('The solution is: ', rows[0].solution);
     });
 
     connection.end();
+    return defer.promise;
   };
 
   return {
-
+    addSet: addSet,
+    getCard: getCard,
+    addCard: addCard
   }
 };
+
+module.exports = card();
