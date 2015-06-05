@@ -1,5 +1,5 @@
 var db = require('./database');
-var Promise = require('');
+var Promise = require('bluebird');
 
 var card = function(){
   var addSet = function(name){
@@ -73,10 +73,27 @@ var card = function(){
     var connection = db();
     connection.connect();
     var data = [id];
-    connection.query('select * from card where card_id = ?', data, function(err, rows, fields) {
+    connection.query('select * from card where cards_id = ?', data, function(err, rows, fields) {
       if (err) throw err;
       defer.resolve(rows);
-      console.log('The solution is: ', rows[0].solution);
+    });
+
+    connection.end();
+    return defer.promise;
+  };
+
+  var getAllCards = function(){
+    var defer = Promise.pending();
+    var connection = db();
+    connection.connect();
+    var queryString = "SELECT * from card ";
+    connection.query(queryString, function(err, rows, fields) {
+      if (!err) {
+        defer.fulfill(rows);
+      } else {
+        defer.reject(err);
+        console.log('Error while performing Query.');
+      }
     });
 
     connection.end();
@@ -86,7 +103,8 @@ var card = function(){
   return {
     addSet: addSet,
     getCard: getCard,
-    addCard: addCard
+    addCard: addCard,
+    getAllCards: getAllCards
   }
 };
 
