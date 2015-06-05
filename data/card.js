@@ -38,8 +38,8 @@ var card = function(){
       "select set_id, set_name from `set`"
       , function(err, sets) {
         if (err) throw err;
-        console.log(sets);
         defer.fulfill(sets);
+
       });
 
     connection.end();
@@ -141,19 +141,8 @@ var card = function(){
     var defer = Promise.pending();
     var connection = db();
     connection.connect();
-    var queryString = "SELECT card.cards_id, 
-                        card.set_id, 
-                        card.card_name, 
-                        card.currency, 
-                        card.image_url, 
-                        card.cost_max, 
-                        card.cost_mid, 
-                        card.cost_min, 
-                        set.set_name 
-                      FROM card 
-                      LEFT JOIN set ON card.set_id = set.set_id";
-    connection.query(queryString, 
-      function(err, rows, fields) {
+    var queryString = "select c.*, s.set_name from card c join `set` s on c.set_id = s.set_id";
+    connection.query(queryString, function(err, rows, fields) {
       if (!err) {
         defer.fulfill(rows);
       } else {
