@@ -39,9 +39,48 @@ var user = function(){
     return defer.promise;
   };
 
+  var incrementBalance = function(id, amount){
+    var defer = Promise.pending();
+    var connection = db();
+    connection.connect();
+
+   var queryString = "UPDATE user set balance = balance + " + amount + " where user_id=" + id;
+    connection.query(queryString, function(err, result) {
+      connection.end();
+      if (!err) {
+        defer.fulfill(result);
+      } else {
+        defer.reject(err);
+        console.log('Error while performing Query.');
+      }
+    });
+
+    return defer.promise;
+  };
+
+  var decrementBalance = function(id, amount){
+    var defer = Promise.pending();
+    var connection = db();
+    connection.connect();
+    var queryString = "UPDATE user set balance = balance - " + amount + " where user_id=" + id;
+    connection.query(queryString, function(err, result) {
+      connection.end();
+      if (!err) {
+        defer.fulfill(result);
+      } else {
+        defer.reject(err);
+        console.log('Error while performing Query.');
+      }
+    });
+
+    return defer.promise;
+  };
+
   return {
     addUser: addUser,
-    getById: getById
+    getById: getById,
+    incrementBalance: incrementBalance,
+    decrementBalance: decrementBalance
   }
 };
 
