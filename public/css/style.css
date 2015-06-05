@@ -2,16 +2,7 @@ body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
-#cardBGround {
-  border-radius: 7px;
-  background: #dddddd;
-  padding: 20px;
-  width: 250px;
-  height: 400px;
-}
-#cardAttribute {
-  padding: 10px;
-}
+
 a {
   color: #00B7FF;
 }
