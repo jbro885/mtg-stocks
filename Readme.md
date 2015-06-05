@@ -1,5 +1,10 @@
 [![Build Status](https://travis-ci.org/nelson54/mtg-stocks.svg)](https://travis-ci.org/nelson54/mtg-stocks)
 
+mtg-stocks
+=============
+
+mtg-stocks is a stock market game using magic card prices built for the first hackathon
+
 ```
 # Check out the repository.
 npm install
