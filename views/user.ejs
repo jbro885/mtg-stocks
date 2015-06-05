@@ -1,8 +1,16 @@
 <% include header %>
 <h1>Profile</h1>
+<% if (user.cards.length == 0) { %>
+
+<div class="no-results">
+  You currently have 0 items in your portfolio.
+</div>
+
+<% } else { %>
 <p>Your current portfolio consists of the following cards.</p>
+
 <div class="row">
-  <% for(var i=0; i<user.cards.length; i++) {
+<% for(var i=0; i<user.cards.length; i++) {
   var card =  user.cards[i];%>
 
   <div class="col-sm-4 col-md-3 user-cards">
@@ -24,7 +32,10 @@
     </div>
   </div>
 
-  <% } %>
+    <%  } %>
+
 </div>
+
+  <% }  %>
 
 <% include footer %>
