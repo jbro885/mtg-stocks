@@ -34,11 +34,17 @@ var portfolio = function(){
   };
 
   var getPortfolio = function(userid){
-    //get quantity of this card in the user's existing portfolio
-    connection.query('SELECT 1 + 1 AS solution', function(err, rows, fields) {
-      if (err) throw err;
+    //get quantity of each card in the user's portfolio
+    var defer = Promise.pending();
 
-      console.log('You own ' + rows[0].solution);
+    connection.query('SELECT 1 + 1 AS solution', function(err, rows, fields) {
+      if (!err) {
+        console.log('You own ' + rows[0].solution);
+        defer.fulfill(rows);
+      } else {
+        defer.reject(err);
+        console.log('Error while performing Query.');
+      }
     });
 
     connection.end();
@@ -82,3 +88,5 @@ var portfolio = function(){
     sellCard: sellCard
   }
 };
+
+module.exports = portfolio();
