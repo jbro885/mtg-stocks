@@ -2,6 +2,33 @@ var db = require('./database');
 var Promise = require('bluebird');
 
 var card = function(){
+
+  var addCardQuery = function(cards) {
+    var query = "INSERT INTO `card` \
+           (\
+             `set_id`, \
+             `card_name`, \
+             `currency`, \
+             `cost_min`, \
+             `cost_mid`, \
+             `cost_max`\
+           ) VALUES ";
+
+    var values = [];
+    cards.forEach(function(card) {
+      if (card)
+        values.push("(\
+              1, \
+          \"" + card.name + "\", \
+            \"$\", \
+            " + card.min + ", \
+            " + card.mid + ", \
+            " + card.max + " \
+          )");
+      })
+    return query + values.join(", ")
+  };
+
   var addSet = function(name){
     var connection = db();
     connection.connect();
@@ -53,29 +80,17 @@ var card = function(){
     connection.end();
   };
 
-  var addCard = function(card){
+  var addCards = function(cards){
     var defer = Promise.pending();
     var connection = db();
     connection.connect();
 
+    var query = addCardQuery(cards);
+    console.log(query);
+
     connection.query(
-      "INSERT INTO `card` \
-      (\
-        `set_id`, \
-        `card_name`, \
-        `currency`, \
-        `cost_min`, \
-        `cost_mid`, \
-        `cost_max`\
-      ) VALUES (\
-        1, \
-        '"+ card.name +"', \
-        '$', \
-        '"+ card.min +"', \
-        '"+ card.mid +"', \
-        '"+ card.max +"' \
-      )"
-      , function(err, result) {
+      query,
+      function(err, result) {
         if (err)
           throw err;
         defer.fulfill(result.insertId);
@@ -120,7 +135,7 @@ var card = function(){
   return {
     addSet: addSet,
     getCard: getCard,
-    addCard: addCard,
+    addCards: addCards,
     getAllCards: getAllCards
   }
 };
