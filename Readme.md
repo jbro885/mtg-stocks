@@ -15,4 +15,8 @@ Todo:
 * Cards
   * show a users cards
   * buy cards
-* Leaderboard
+  * sell cards
+* Leader board
+* Scrapers
+  * scrape images from gatherer
+  * scrape prices from
