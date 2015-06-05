@@ -26,7 +26,7 @@ var portfolio = function(){
     connection.query('SELECT 1 + 1 AS solution', function(err, rows, fields) {
       if (err) throw err;
 
-      console.log('You own this number of ' + cardname + ' ' + ' rows[0].solution);
+      console.log('You own this number of ' + cardname + ' ' + rows[0].solution);
     });
 
     connection.end();
