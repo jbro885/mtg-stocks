@@ -78,12 +78,13 @@ module.exports = () ->
   request {url: setsPath, headers: headers}
     .then (response) ->
       $ = cheerio.load(response[1])
-
       $('.magicSets ul a.default_9_link')
         .map () ->
           console.log($(this).text());
           return $(this).text()
         .get()
+    .then (sets) ->
+      cardService.batchAddSets(sets)
     .map (setName) ->
       console.log(setPath + setName)
       request {url:setPath + setName , headers: headers}
