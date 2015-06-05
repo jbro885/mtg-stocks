@@ -16,7 +16,7 @@ npm install
 grunt
 ```
 
-Open [localhost:3000](http://localhost:3000)
+Once its running just go to [localhost:3000](http://localhost:3000)
 
 Todo:
 =============
