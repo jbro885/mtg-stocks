@@ -30,9 +30,10 @@
     "grunt-develop": "~0.4.0",
     "grunt-filerev": "^2.3.1",
     "jasmine": "^2.3.1",
-    "karma-jasmine": "*",
     "karma": "~0.12",
+    "karma-jasmine": "*",
     "load-grunt-tasks": "~3.1.0",
+    "phantomjs": "^1.9.17",
     "time-grunt": "~1.1.0"
   }
 }
