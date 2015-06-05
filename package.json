@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "test": "expresso test/*"
+    "test": "./node_modules/.bin/karma start --single-run --browsers PhantomJS"
   },
   "dependencies": {
     "bluebird": "^2.9.27",
@@ -29,8 +29,9 @@
     "grunt-contrib-watch": "~0.6.1",
     "grunt-develop": "~0.4.0",
     "grunt-filerev": "^2.3.1",
+    "jasmine": "^2.3.1",
+    "karma": "~0.12",
     "load-grunt-tasks": "~3.1.0",
-    "time-grunt": "~1.1.0",
-    "expresso": "*"
+    "time-grunt": "~1.1.0"
   }
 }
