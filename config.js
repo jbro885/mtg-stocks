@@ -6,7 +6,6 @@ module.exports = {
     database : process.env.MYSQL_DATABASE
   },
   filepicker : {
-    user : process.env.FILEPICKER_USER,
-    password : process.env.FILEPICKER_PASS
+    key : process.env.FILEPICKER_KEY
   }
 };
