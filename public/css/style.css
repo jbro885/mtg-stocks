@@ -1,8 +1,37 @@
 body {
-  padding: 50px;
+  padding: 0 50px 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
   color: #00B7FF;
+}
+.user-info {
+	margin: 0;
+	padding: 15px;
+	list-style: none;
+	float: right;
+	background: #eaeaea;
+	font-size: 90%;
+	box-shadow: inset 0 -4px 3px -3px rgba(0, 0, 0, 0.13) ;
+}
+.user-info li {
+	margin: 0;
+	padding: 0 5px;
+	list-style: none;
+	display: inline;
+	border-left: 1px solid rgba(0,0,0,.3);
+	text-shadow: 1px 1px 0 rgba(255,255,255,.5);
+}
+.user-info li:first-child {
+	border: 0;
+}
+.box-quantity {
+	width: 75px; 
+	margin-right: 10px;
+}
+.user-cards { 
+	padding-bottom: 20px;
+	padding-top: 20px;
+	border-bottom: 1px solid #eaeaea;
 }
