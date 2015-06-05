@@ -5,6 +5,7 @@ request = Promise.promisify(require("request"));
 cheerio = require('cheerio');
 
 Money = require('money-formatter')
+cardService = require('./../../data/card');
 
 sets = []
 
@@ -101,6 +102,9 @@ module.exports = () ->
         .then (cards) ->
           if(cards.length)
             console.log(cards)
+          cards
+        .each (card) ->
+          cardService.addCard(card)
     .then () ->
       defer.fulfill(1)
   return defer.promise
