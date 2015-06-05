@@ -38,7 +38,7 @@ var card = function(){
       if (err) throw err;
       else console.log(rows);
     });
-  }
+  };
 
   var removeSet = function(){
     var connection = db();
@@ -121,7 +121,8 @@ var card = function(){
     addSet: addSet,
     getCard: getCard,
     addCard: addCard,
-    getAllCards: getAllCards
+    getAllCards: getAllCards,
+    batchAddSets: batchAddSets
   }
 };
 
