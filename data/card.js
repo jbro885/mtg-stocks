@@ -18,7 +18,7 @@ var card = function(){
     cards.forEach(function(card) {
       if (card)
         values.push("(\
-              1, \
+              "+card.set+", \
           \"" + card.name + "\", \
             \"$\", \
             " + card.min + ", \
@@ -35,11 +35,11 @@ var card = function(){
     connection.connect();
 
     connection.query(
-      "select * from `set`;"
+      "select set_id, set_name from `set`"
       , function(err, sets) {
         if (err) throw err;
+        console.log(sets);
         defer.fulfill(sets);
-
       });
 
     connection.end();
