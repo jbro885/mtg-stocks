@@ -19,7 +19,8 @@
     "morgan": "~1.5.0",
     "mysql": "^2.7.0",
     "request": "~2.55.0",
-    "serve-favicon": "~2.2.0"
+    "serve-favicon": "~2.2.0",
+    "node-filepicker": "~0.1.2"
   },
   "devDependencies": {
     "grunt": "~0.4.5",
