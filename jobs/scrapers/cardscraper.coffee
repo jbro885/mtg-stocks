@@ -12,7 +12,7 @@ headers = {
   "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
   "User-Agent": "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.71 Safari/537.36",
   "Referer" : "http://shop.tcgplayer.com/magic",
-  "Cookie" : "setting=CD=US&M=1; tcgpartner=PK=WWWTCG&M=1; TCG_Data=M=1&SearchGameNameID=magic&CustomerClosedTips=4; SearchCriteria=M=1&WantGoldStar=False&WantCertifiedHobbyShop=False&WantDirect=False&WantSellersInCart=False&magic_MinQuantity=1&GameName=Magic&Magic_Language=English; ASPSESSIONIDSQSQAABA=NJGANBIAGHPBJKJGHBKPIGOM; StoreCart_PRODUCTION=CK=5ace322850dc46aeaba4ab7f4186ec16&Ignore=false; __utma=1.2047100343.1433516199.1433516199.1433524019.2; __utmc=1; __utmz=1.1433516199.1.1.utmcsr=magic.tcgplayer.com|utmccn=(referral)|utmcmd=referral|utmcct=/db/search_result.asp"
+  "Cookie" : "setting=CD=US&M=1; tcgpartner=PK=WWWTCG&M=1; ASPSESSIONIDSQSQAABA=NJGANBIAGHPBJKJGHBKPIGOM; StoreCart_PRODUCTION=CK=5ace322850dc46aeaba4ab7f4186ec16&Ignore=false; TCG_Data=M=1&SearchGameNameID=magic&CustomerClosedTips=4; SearchCriteria=M=1&WantGoldStar=False&WantCertifiedHobbyShop=False&WantDirect=False&WantSellersInCart=False&magic_MinQuantity=1&GameName=Magic&Magic_Language=English; ASPSESSIONIDSQQTDBBB=BLOBDJPADEFEADLGPANFJPMG; __utma=92457496.1596193169.1433532313.1433532313.1433532313.1; __utmb=92457496.2.10.1433532313; __utmc=92457496; __utmz=92457496.1433532313.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)"
 };
 
 properties = [["name", 0], ["set", 1], ["max", 2], ["mid", 3], ["min", 4]]
@@ -69,12 +69,11 @@ module.exports = (setName) ->
     .then (response) ->
       $ = cheerio.load response[1]
       #console.log(response[1])
-      $('div.bodyWrap table tr').eq(3)
+      $('div.bodyWrap table tr')
         .map () ->
-          $r = $('td > a', this)
-          console.log($r.html())
+          $r = $('a', this)
           rowToObject($r)
-        .get()
+            .get()
     .map (obj) ->
       if(obj.min)
         try
