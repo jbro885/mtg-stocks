@@ -5,7 +5,7 @@ request = Promise.promisify(require("request"));
 cheerio = require('cheerio');
 
 workerFarm = require('worker-farm')
-writerWorker = workerFarm({maxConcurrentCalls : 10}, require.resolve('./card-write-job'))
+writerWorker = workerFarm({maxConcurrentCalls : 1}, require.resolve('./card-write-job'))
 
 Money = require('money-formatter')
 cardService = require('./../../data/card');
