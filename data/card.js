@@ -29,6 +29,23 @@ var card = function(){
     return query + values.join(", ")
   };
 
+  var getSets = function(){
+    var defer = Promise.pending();
+    var connection = db();
+    connection.connect();
+
+    connection.query(
+      "select * from `set`;"
+      , function(err, sets) {
+        if (err) throw err;
+        defer.fulfill(sets);
+
+      });
+
+    connection.end();
+    return defer.promise;
+  };
+
   var addSet = function(name){
     var connection = db();
     connection.connect();
@@ -50,6 +67,8 @@ var card = function(){
   };
 
   var batchAddSets = function(names) {
+    var defer = Promise.pending();
+
     var connection = db();
     connection.connect();
 
@@ -59,12 +78,16 @@ var card = function(){
       ) VALUES ";
     for(var i in names) {
       if(i != 0) query += ",";
-      query += "(" + names[i] + ")";
+      query += "(\"" + names[i] + "\")";
     }
+
+    console.log(query);
     connection.query(query, function(err, rows, fields) {
       if (err) throw err;
-      else console.log(rows);
+      else defer.fulfill(rows);
     });
+
+    return defer.promise;
   };
 
   var removeSet = function(){
@@ -133,6 +156,7 @@ var card = function(){
   };
 
   return {
+    getSets: getSets,
     addSet: addSet,
     getCard: getCard,
     addCards: addCards,
