@@ -141,14 +141,7 @@ var card = function(){
     var defer = Promise.pending();
     var connection = db();
     connection.connect();
-    var queryString = "SELECT card.cards_id, \
-                        card.set_id, \
-                        card.card_name, \
-                        card.currency, \
-                        card.image_url, \
-                        card.cost_max, \
-                        card.cost_mid, \
-                        card.cost_min, \
+    var queryString = "SELECT card.*, \
                         set.set_name \
                       FROM card \
                       LEFT JOIN set ON card.set_id = set.set_id";
