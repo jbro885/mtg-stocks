@@ -82,6 +82,10 @@ var card = function(){
   };
 
   return {
-
+    addSet: addSet,
+    getCard: getCard,
+    addCard: addCard
   }
 };
+
+module.exports = card();
