@@ -71,14 +71,9 @@ var portfolio = function(){
     connection.connect();
     //get quantity of each card in the user's portfolio
     var defer = Promise.pending();
-
-    connection.query("SELECT 1 + 1 AS  quantity, 77 as cards_id", function(err, rows, fields) {
+      connection.query('SELECT c.cards_id, p.quantity, c.card_name from portfolio p join card c on p.cards_id = c.cards_id where p.user_id  = ' + userid, function(err, rows, fields) {
       if (!err) {
-        console.log('Your portfolio contains ' + rows[0].quantity + ' of ' + rows[0].cards_id);
-        defer.fulfill([
-          {"cards_id":rows[0].cards_id, "quantity":rows[0].quantity},
-          {"cards_id":rows[0].cards_id, "quantity":rows[0].quantity}
-        ]);
+        defer.fulfill(rows);
       } else {
         defer.reject(err);
         console.log('Error while performing Query.');
