@@ -2,6 +2,8 @@
  * Created by remaus on 6/5/2015.
  */
 var db = require('./database');
+var Promise = require('bluebird');
+
 
 var portfolio = function(){
   var connection = db();
@@ -40,7 +42,7 @@ var portfolio = function(){
     connection.query('SELECT 1 + 1 AS solution', function(err, rows, fields) {
       if (!err) {
         console.log('You own ' + rows[0].solution);
-        defer.fulfill(rows);
+        defer.fulfill({'magic1':1, 'magic2':3});
       } else {
         defer.reject(err);
         console.log('Error while performing Query.');
@@ -48,7 +50,7 @@ var portfolio = function(){
     });
 
     connection.end();
-    return {'magic1':1, 'magic2':3};
+    return defer.promise;
   };
 
   var buyCard = function(userid, cardname, quantity){
