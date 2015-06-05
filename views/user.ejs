@@ -1,18 +1,33 @@
 <% include header %>
   <table>
     <tr>
-    <td>User Id: </td><td>&nbsp;</td><td> DFonte</td>
+    <td>User Id: </td><td>&nbsp;</td><td>  <%-user.username%></td>
     </tr><tr>
-    <td>Current Balance:</td><td>&nbsp;</td><td>$22.31</td>
+    <td>Current Balance:</td><td>&nbsp;</td><td>$<%-user.balance%></td>
     </tr><tr>
     <td>Net Worth</td><td>&nbsp;</td><td> $402.33</td>
     </tr>
   </table>
 
-  <div class="individualCard" id="cardBGround">
-    <a><img src="http://i.tcgplayer.com/82245.jpg"></a>
-    <span id="cardAttribute">Quantity: </span>
-    <span id="cardAttribute">Current Price:</span>
-    <span id="cardAttribute">Sell [1]</span>
+
+  <% for(var i=0; i<user.cards.length; i++) {
+  var card =  user.cards[i];%>
+  <div class="col-sm-4 col-md-3">
+    <div class="thumbnail">
+      <img src="http://i.tcgplayer.com/82245.jpg"
+           alt="<%-card.cardname%>">
+    </div>
+    <div class="caption">
+      <h3>Quantity: <%-card.quantity%></h3>
+      <p>This sells for: $0.32</p>
+      <p>
+      <a href="#" class="btn btn-primary" role="button">
+        Sell Cards
+      </a>
+        <a><input class="form-control" type="number" data-fv-integer-message="The value is not an integer" data-fv-field="number"></a>
+      </p>
+    </div>
   </div>
+  <% } %>
+
 <% include footer %>
