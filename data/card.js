@@ -22,6 +22,24 @@ var card = function(){
     connection.end();
   };
 
+  var batchAddSets = function(names) {
+    var connection = db();
+    connection.connect();
+
+    var query = "INSERT INTO `set` \
+      (\
+        `set_name` \
+      ) VALUES ";
+    for(var i in names) {
+      if(i != 0) query += ",";
+      query += "(" + names[i] + ")";
+    }
+    connection.query(query, function(err, rows, fields) {
+      if (err) throw err;
+      else console.log(rows);
+    });
+  }
+
   var removeSet = function(){
     var connection = db();
     connection.connect();
