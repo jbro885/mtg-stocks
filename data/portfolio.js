@@ -7,16 +7,16 @@ var Promise = require('bluebird');
 
 var portfolio = function(){
 
-  var addCard = function(userid, cardname, quantity){
+  var addCard = function(userid, cards_id, quantity){
     var connection = db();
     connection.connect();
     var defer = Promise.pending();
     //get quantity of this card in the user's existing portfolio
     //need to add to existing portfolio for this card
-    connection.query('SELECT 1 + 1 AS solution', function(err, rows, fields) {
+    connection.query('UPDATE ignore portfolio set quantity=quantity+' + quantity + ' where user_id=' + userid + ' and cards_id = ' + cards_id, function(err, result) {
       if (!err) {
-        console.log('You now have ' + rows[0].solution + ' ' + cardname + ' cards');
-        defer.fulfill({"cardname": cardname, "quantity": rows[0].solution});
+        console.log('You added quantity ' + quantity + ' to cards_id ' + cards_id);
+        defer.fulfill(result);
       } else {
         defer.reject(err);
         console.log('Error while performing Query.');
@@ -27,15 +27,15 @@ var portfolio = function(){
     return defer.promise;
   };
 
-  var getCard = function(userid, cardname){
+  var getCard = function(userid, cards_id){
     var connection = db();
     connection.connect();
     var defer = Promise.pending();
     //get quantity of this card in the user's existing portfolio
-    connection.query('SELECT 1 + 1 AS solution', function(err, rows, fields) {
+    connection.query('SELECT quantity AS quantity from portfolio where user_id=' + userid + ' and cards_id = ' + cards_id, function(err, rows, fields) {
       if (!err) {
-        console.log('You own ' + rows[0].solution + ' of card ' + cardname);
-        defer.fulfill({"cardname": cardname, "quantity": rows[0].solution});
+        console.log('You own ' + rows[0].quantity + ' of card ' + cards_id);
+        defer.fulfill({"cards_id": cards_id, "quantity": rows[0].quantity});
       } else {
         defer.reject(err);
         console.log('Error while performing Query.');
@@ -46,15 +46,15 @@ var portfolio = function(){
     return defer.promise;
   };
 
-  var removeCard = function(userid, cardname, quantity){
+  var removeCard = function(userid, cards_id, quantity){
     var connection = db();
     connection.connect();
     var defer = Promise.pending();
 
     connection.query('SELECT 1 + 1 AS solution', function(err, rows, fields) {
       if (!err) {
-        console.log('You removed ' + rows[0].solution + ' ' + cardname);
-        defer.fulfill({"cardname": cardname, "quantity": rows[0].solution});
+        console.log('You removed ' + rows[0].solution + ' ' + cards_id);
+        defer.fulfill({"cards_id": cards_id, "quantity": rows[0].solution});
       } else {
         defer.reject(err);
         console.log('Error while performing Query.');
@@ -72,12 +72,12 @@ var portfolio = function(){
     //get quantity of each card in the user's portfolio
     var defer = Promise.pending();
 
-    connection.query("SELECT 1 + 1 AS  quantity, 'jack' as cardname", function(err, rows, fields) {
+    connection.query("SELECT 1 + 1 AS  quantity, 77 as cards_id", function(err, rows, fields) {
       if (!err) {
-        console.log('Your portfolio contains ' + rows[0].quantity + ' of ' + rows[0].cardname);
+        console.log('Your portfolio contains ' + rows[0].quantity + ' of ' + rows[0].cards_id);
         defer.fulfill([
-          {"cardname":rows[0].cardname, "quantity":rows[0].quantity},
-          {"cardname":rows[0].cardname, "quantity":rows[0].quantity}
+          {"cards_id":rows[0].cards_id, "quantity":rows[0].quantity},
+          {"cards_id":rows[0].cards_id, "quantity":rows[0].quantity}
         ]);
       } else {
         defer.reject(err);
@@ -89,15 +89,15 @@ var portfolio = function(){
     return defer.promise;
   };
 
-  var buyCard = function(userid, cardname, quantity){
+  var buyCard = function(userid, cards_id, quantity){
     var connection = db();
     connection.connect();
     var defer = Promise.pending();
     //get quantity of this card in the user's existing portfolio
     connection.query('SELECT 1 + 1 AS solution', function(err, rows, fields) {
       if (!err) {
-        console.log('You purchased ' + rows[0].solution + ' of card ' + cardname);
-        defer.fulfill({'cardname':cardname, 'quantity':rows[0].solution});
+        console.log('You purchased ' + rows[0].solution + ' of card ' + cards_id);
+        defer.fulfill({'cards_id':cards_id, 'quantity':rows[0].solution});
       } else {
         defer.reject(err);
         console.log('Error while performing Query.');
@@ -108,20 +108,20 @@ var portfolio = function(){
     return defer.promise;
   };
 
-  var sellCard = function(userid, cardname, quantity){
+  var sellCard = function(userid, cards_id, quantity){
     var connection = db();
     connection.connect();
     var defer = Promise.pending();
     //do you own the card? how many? cap sell at user owned quantity.
     //get the price
     //compute sold dollar amount
-    //decrement portfolio for cardname
+    //decrement portfolio for cards_id
     //update user balance
 
     connection.query('SELECT 1 + 1 AS solution', function(err, rows, fields) {
       if (!err) {
-        console.log('You sold ' + rows[0].solution + ' of card ' + cardname);
-        defer.fulfill({'cardname': cardname, 'quantity':7});
+        console.log('You sold ' + rows[0].solution + ' of card ' + cards_id);
+        defer.fulfill({'cards_id': cards_id, 'quantity':7});
       } else {
         defer.reject(err);
         console.log('Error while performing Query.');
