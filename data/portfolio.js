@@ -13,10 +13,10 @@ var portfolio = function(){
     var defer = Promise.pending();
     //get quantity of this card in the user's existing portfolio
     //need to add to existing portfolio for this card
-    connection.query('SELECT 1 + 1 AS solution', function(err, rows, fields) {
+    connection.query('UPDATE ignore portfolio set quantity=quantity+' + quantity + ' where user_id=' + userid + ' and cards_id = ' + cards_id, function(err, result) {
       if (!err) {
-        console.log('You now have ' + rows[0].solution + ' ' + cards_id + ' cards');
-        defer.fulfill({"cards_id": cards_id, "quantity": rows[0].solution});
+        console.log('You added quantity ' + quantity + ' to cards_id ' + cards_id);
+        defer.fulfill(result);
       } else {
         defer.reject(err);
         console.log('Error while performing Query.');
@@ -32,10 +32,10 @@ var portfolio = function(){
     connection.connect();
     var defer = Promise.pending();
     //get quantity of this card in the user's existing portfolio
-    connection.query('SELECT 1 + 1 AS solution', function(err, rows, fields) {
+    connection.query('SELECT quantity AS quantity from portfolio where user_id=' + userid + ' and cards_id = ' + cards_id, function(err, rows, fields) {
       if (!err) {
-        console.log('You own ' + rows[0].solution + ' of card ' + cards_id);
-        defer.fulfill({"cards_id": cards_id, "quantity": rows[0].solution});
+        console.log('You own ' + rows[0].quantity + ' of card ' + cards_id);
+        defer.fulfill({"cards_id": cards_id, "quantity": rows[0].quantity});
       } else {
         defer.reject(err);
         console.log('Error while performing Query.');
