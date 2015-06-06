@@ -5,7 +5,7 @@ var portfolioService = require('../data/portfolio');
 
 router.get('/', function(req, res) {
 
-  var user = userService.getUser(2)
+  userService.getUser(2)
     .then(function(user){
 
       portfolioService.getPortfolio(2)

@@ -6,7 +6,7 @@ var portfolioService = require('../data/portfolio');
 router.get('/', function(req, res) {
 
   var leaders;
-  user = userService.getLeaders()
+  userService.getLeaders()
     .then(function (user) {
       var leaderList = [];
       user.forEach(function (userLeader) {
