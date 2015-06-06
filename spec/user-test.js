@@ -14,6 +14,9 @@ promise.all([
   }),
   user.decrementBalance(22, 10).then(function(result){
     console.log(result);
+  }),
+  user.getLeaders().then(function(rows){
+    console.log(rows);
   })
 
 ]);

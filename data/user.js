@@ -39,6 +39,24 @@ var user = function(){
     return defer.promise;
   };
 
+  var getLeaders = function(){
+    var defer = Promise.pending();
+    var connection = db();
+    connection.connect();
+    var queryString = "SELECT username, balance FROM user ORDER BY balance DESC LIMIT 10";
+    connection.query(queryString, function(err, rows, fields) {
+      connection.end();
+      if (err) {
+        defer.reject(err);
+        console.log('Error while performing Query.');
+      } else {
+        defer.fulfill(rows);
+      }
+    });
+
+    return defer.promise;
+  };
+
   var incrementBalance = function(id, amount){
     var defer = Promise.pending();
     var connection = db();
@@ -47,11 +65,11 @@ var user = function(){
    var queryString = "UPDATE user set balance = balance + " + amount + " where user_id=" + id;
     connection.query(queryString, function(err, result) {
       connection.end();
-      if (!err) {
-        defer.fulfill(result);
-      } else {
+      if (err) {
         defer.reject(err);
         console.log('Error while performing Query.');
+      } else {
+        defer.fulfill(result);
       }
     });
 
@@ -65,11 +83,11 @@ var user = function(){
     var queryString = "UPDATE user set balance = balance - " + amount + " where user_id=" + id;
     connection.query(queryString, function(err, result) {
       connection.end();
-      if (!err) {
-        defer.fulfill(result);
-      } else {
+      if (err) {
         defer.reject(err);
         console.log('Error while performing Query.');
+      } else {
+        defer.fulfill(result);
       }
     });
 
@@ -79,6 +97,7 @@ var user = function(){
   return {
     addUser: addUser,
     getById: getById,
+    getLeaders: getLeaders,
     incrementBalance: incrementBalance,
     decrementBalance: decrementBalance
   }
