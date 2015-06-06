@@ -3,7 +3,7 @@
 <table id="card-table" class="table table-striped" >
   <thead>
       <th data-dynatable-column="set_name">Set</th>
-      <th data-dynatable-column="card_name"> Name</th>
+      <th data-dynatable-column="card_name">Name</th>
       <th data-dynatable-column="cost_mid">Cost</th>
   </thead>
   <tbody>
@@ -18,14 +18,14 @@
   var cards = <%-JSON.stringify(cards)%>;
   $('#card-table').dynatable({
     dataset: {
-      records: cards,
-      features: {
+      records: cards
+    },
+    table: {
+      defaultColumnIdStyle: 'underscore'
+    },
+    features: {
           pushState: false
       },
-      table: {
-        defaultColumnIdStyle: 'underscore'
-      }
-    }
   });
 </script>
 
