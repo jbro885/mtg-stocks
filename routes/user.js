@@ -17,4 +17,31 @@ router.get('/', function(req, res) {
     });
 });
 
+router.post('/', function(req, res) {
+
+  var userId = req.param('user_id');
+  var cardId = req.param('card_id');
+  var quantity = req.param('quantity');
+
+  portfolioService.buyCard(userId, cardId, quantity)
+    .then(function() {
+      res.send(true)
+    })
+
+});
+
+router.delete('/', function(req, res) {
+
+  var userId = req.param('user_id');
+  var cardId = req.param('card_id');
+  var quantity = req.param('quantity');
+
+  portfolioService.sellCard(userId, cardId, quantity)
+    .then(function() {
+      res.send(true)
+    })
+
+
+});
+
 module.exports = router;

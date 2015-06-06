@@ -1,13 +1,66 @@
+<% page = "Shop" %>
 <% include header %>
 
-   <ul>
-   <% for(var i=0; i<cards.length; i++) {%>
-      <li>
-       name: <%-cards[i].card_name %> <br/>
-       cost: <%-cards[i].cost_mid %> <br/>
-      </li>
-      <br/>
-   <% } %>
-   </ul>
+<ul id="cards" class="row cards-list">
+</ul>
 
-<% include footer %>
+
+
+<script type="ejs-template" id="row-template">
+  <li class="user-cards col-lg-2 col-md-3 col-sm-4 col-xs-6">
+      <img src="http://i.tcgplayer.com/82245.jpg" alt="" class="thumbnail" />
+      <strong class="cards-name"> {{card_name}} </strong>
+      <i class="card-set"> {{set_name}} </i>
+      <span class="card-price">{{currency}}{{cost_mid}}</span>
+      <div class="pull-left box-quantity">
+        <input class="form-control" type="number" data-fv-integer-message="The value is not an integer" data-fv-field="number">
+      </div>
+      <button type="submit" class="btn btn-primary" href="#">Buy</button>
+  </li>
+</script>
+
+
+
+<link rel="stylesheet" href="/vendor/dynatable/jquery.dynatable.css">
+<script src="/vendor/jquery/jquery-1.11.3.min.js"></script>
+<script src="/vendor/dynatable/jquery.dynatable.js"></script>
+<script src="/vendor/underscore.min.js"></script>
+
+<script type="text/javascript">
+  var cards = <%-JSON.stringify(cards)%>;
+
+  $(function(){
+
+    _.templateSettings = {
+      interpolate: /\{\{(.+?)\}\}/g
+    };
+
+    var ulTemplate = _.template($("#row-template").text());
+
+    var ulWriter = function(rowIndex, data){
+      return ulTemplate(data);
+    };
+
+
+    var dynatable = $('#cards').dynatable({
+      table: {
+        bodyRowSelector: 'li'
+      },
+      dataset: {
+        records: cards,
+        perPageDefault: 100,
+        perPageOptions: [100, 500, 1000]
+      },
+      features: {
+          pushState: false,
+          sort: false
+      },
+      writers: {
+          _rowWriter: ulWriter
+      }
+    }).data('dynatable');
+    dynatable.dom.update();
+
+  });
+</script>
+

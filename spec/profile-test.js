@@ -14,7 +14,7 @@ promise.all([
     .then(function(rows){
       console.log(rows);
     }),
-  portfolio.removeCard(1, 'bower', 3)
+  portfolio.sellCard(1, 'bower', 3)
     .then(function (rows) {
       console.log(rows);
     }),
