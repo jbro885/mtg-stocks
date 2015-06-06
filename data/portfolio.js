@@ -32,7 +32,11 @@ var portfolio = function(){
     connection.connect();
     //get quantity of each card in the user's portfolio
     var defer = Promise.pending();
-    connection.query('SELECT c.cards_id, p.quantity, c.card_name from portfolio p join card c on p.cards_id = c.cards_id where p.user_id  = ' + userid, function(err, rows, fields) {
+
+    var query = 'SELECT c.cards_id, p.quantity, c.card_name from portfolio p join card c on p.cards_id = c.cards_id'
+      + ' where p.quantity > 0 and p.user_id  = ' + userid;
+
+    connection.query(query, function(err, rows, fields) {
       if (!err) {
         defer.fulfill(rows);
       } else {
