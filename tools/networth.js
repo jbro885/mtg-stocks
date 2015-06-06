@@ -3,6 +3,14 @@ var db = require('../data/database');
 var Promise = require('bluebird');
 var moment = require('moment');
 
+(function main(){
+  userService.getUsers()
+    .then(updateUsers)
+    .then(function(){
+      console.log('done.')
+    })
+})();
+
 var dateFormatter = function(date){
   return '"'+moment(date).format('YYYY-MM-DD HH:mm:ss')+'"';
 };
@@ -32,12 +40,3 @@ var updateUsers = function(users){
 
   return defer.promise;
 };
-
-
-(function main(){
-  userService.getUsers()
-    .then(updateUsers)
-    .then(function(){
-      console.log('done.')
-    })
-})();
