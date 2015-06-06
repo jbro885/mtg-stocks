@@ -17,3 +17,6 @@ router.get('/', function(req, res) {
   res.render('leaders', {})
 
 });
+
+
+module.exports = router;

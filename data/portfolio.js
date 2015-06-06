@@ -139,11 +139,10 @@ var portfolio = function(){
 
   return {
     addCard: addCard,
-    removeCard: removeCard,
+    sellCard: sellCard,
     getCard: getCard,
     getPortfolio: getPortfolio,
-    buyCard: buyCard,
-    sellCard: sellCard
+    buyCard: buyCard
   }
 };
 
