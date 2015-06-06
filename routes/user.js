@@ -1,7 +1,8 @@
 var express = require('express');
-var router = express.Router();
 var userService = require('../data/user');
 var portfolioService = require('../data/portfolio');
+
+var router = express.Router();
 
 router.get('/user', function(req, res) {
   userService.getUser(2)
@@ -16,7 +17,7 @@ router.get('/user', function(req, res) {
     });
 });
 
-router.post('/user', function(req, res) {
+router.post('/user/cards', function(req, res) {
 
   var userId = req.param('user_id');
   var cardId = req.param('card_id');
@@ -29,11 +30,11 @@ router.post('/user', function(req, res) {
 
 });
 
-router.delete('/user', function(req, res) {
+router.delete('/user/cards', function(req, res) {
 
-  var userId = req.param('user_id');
-  var cardId = req.param('card_id');
-  var quantity = req.param('quantity');
+  var userId = req.params.user_id;
+  var cardId = req.params.card_id;
+  var quantity = req.params.quantity;
 
   portfolioService.sellCard(userId, cardId, quantity)
     .then(function() {

@@ -1,15 +1,15 @@
 var portfolio = function(){
   var buy = function(data, success, error){
-    $.ajax('/user', {
+    $.ajax('/user/cards', {
       data : data,
       method: 'POST'
     }).success(success).error(error)
   };
 
   var sell = function(data, success, error){
-    $.ajax('/user', {
+    $.ajax('/user/cards', {
       data : data,
-      method: 'DELETE'
+      type: 'DELETE'
     }).success(success).error(error)
   };
 

@@ -16,7 +16,7 @@
 
       var userId = $card.data('userId');
       var cardId = $card.data('cardId');
-      var quantity = $card.find('.box-quantity input').first().val();
+      var quantity = $card.find('.box-quantity input').val();
 
       portfolio.sell({user_id: userId, card_id: cardId, quantity: quantity}, success, error)
     })
