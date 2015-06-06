@@ -2,7 +2,6 @@
  * Created by remaus on 6/5/2015.
  */
 var db = require('./database');
-var card = require('/card');
 var Promise = require('bluebird');
 
 
@@ -89,23 +88,27 @@ var portfolio = function(){
     var connection = db();
     connection.connect();
     var defer = Promise.pending();
-    var portfolio_item = [userid, cards_id, quantity, quantity];
-    var query = "INSERT INTO `portfolio`(user_id, cards_id, quantity) \
-      VALUES ( ?, ?, ?) \
-      ON DUPLICATE KEY UPDATE quantity = quantity + ?;";
+    var portfolio_item = [userid, cards_id, quantity];
+    var query = " \
+    select @user_id := ?, @cards_id := ?, @quantity := ?; \
+    select @cost := cost_mid \
+    from card \
+    where cards_id = @cards_id; \
+    \
+    INSERT INTO `portfolio`(user_id, cards_id, quantity) \
+    VALUES ( @user_id, @cards_id, @quantity) \
+    ON DUPLICATE KEY UPDATE quantity = quantity + @quantity; \
+    \
+    update user \
+    set balance = ifnull(balance, 0) - (@cost * @quantity) \
+    where user_id = @user_id";
 
-    cardService.getCard(userid, cards_id)
-      .then(function(cards){
-        connection.query(
-          query,
-          portfolio_item,
-          function(err, result) {
-            if (err)
-              throw err;
-            defer.fulfill(result.insertId);
-          });
-        connection.end();
-      });
+    connection.query(query, portfolio_item, function(err, result) {
+      if (err)
+        throw err;
+      defer.fulfill(result.insertId);
+    });
+    connection.end();
 
     return defer.promise;
   };
