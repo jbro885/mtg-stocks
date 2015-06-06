@@ -73,7 +73,7 @@ var portfolio = function(){
     var defer = Promise.pending();
       connection.query('SELECT c.cards_id, p.quantity, c.card_name from portfolio p join card c on p.cards_id = c.cards_id where p.user_id  = ' + userid, function(err, rows, fields) {
       if (!err) {
-        defer.fulfill(rows);
+        defer.fulfill(rows[0]);
       } else {
         defer.reject(err);
         console.log('Error while performing Query.');
