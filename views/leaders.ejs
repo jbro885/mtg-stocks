@@ -3,14 +3,15 @@
 <h1>Leaderboard</h1>
 <p>What is your standing and who are at the top.</p>
 
-<% if (leaderList.length == 0) { %>
-
-<% } else { %>
-
-<ul class="row leaderList-list">
-
+<ul>
+  <% for(var i=0; i<leaderList.length; i++) {
+    var leader = leaderList[i];
+  %>
+  <li>
+    name: <%-leader.username %> <br/>
+    cost: <%-leader.balance %> <br/>
+  </li>
+  <% } %>
 </ul>
-
-<% }  %>
 
 <% include footer %>

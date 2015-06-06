@@ -75,7 +75,15 @@ var user = function(){
     var defer = Promise.pending();
     var connection = db();
     connection.connect();
-    var queryString = "SELECT user_id, username, balance FROM user ORDER BY balance DESC LIMIT 10";
+    var queryString = " \
+    SELECT u.user_id, u.username, IFNULL(SUM(p.quantity * c.cost_mid), 0) + u.balance as balance \
+    FROM user u \
+    LEFT OUTER JOIN portfolio p on u.user_id = p.user_id \
+    LEFT OUTER JOIN card c on p.cards_id = c.cards_id \
+    GROUP BY u.user_id, u.username, u.balance \
+    ORDER BY balance DESC \
+    LIMIT 10; ";
+
     connection.query(queryString, function (err, rows, fields) {
       if (err) {
         defer.reject(err);
@@ -130,6 +138,7 @@ var user = function(){
     addUser: addUser,
     getUser: getUser,
     getUsers: getUsers,
+    getLeaders: getLeaders,
     incrementBalance: incrementBalance,
     decrementBalance: decrementBalance
   }
