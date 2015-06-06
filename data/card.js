@@ -155,13 +155,32 @@ var card = function(){
     return defer.promise;
   };
 
+  var findCard = function(name){
+    var defer = Promise.pending();
+    var connection = db();
+    connection.connect();
+    var queryString = "SELECT * from card WHERE card_name like '%"+name+"%'";
+    connection.query(queryString, function(err, result) {
+      if (!err) {
+        defer.fulfill(result);
+      } else {
+        defer.reject(err);
+        console.log('Error while performing Query.');
+      }
+    });
+
+    connection.end();
+    return defer.promise;
+  };
+
   return {
     getSets: getSets,
     addSet: addSet,
     getCard: getCard,
     addCards: addCards,
     getAllCards: getAllCards,
-    batchAddSets: batchAddSets
+    batchAddSets: batchAddSets,
+    findCard: findCard
   }
 };
 
