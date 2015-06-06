@@ -8,10 +8,10 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 
+var userRoute = require('./routes/user');
+var cards = require('./routes/cards');
 var leaders = require('./routes/leaders');
 var routes = require('./routes/index');
-var user = require('./routes/user');
-var cards = require('./routes/cards');
 
 var app = express();
 
@@ -34,7 +34,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
-app.use('/', user);
+app.use('/', userRoute);
 app.use('/', cards);
 app.use('/', leaders);
 
