@@ -24,15 +24,13 @@
 <link rel="stylesheet" href="/vendor/dynatable/jquery.dynatable.css">
 <script src="/vendor/jquery/jquery-1.11.3.min.js"></script>
 <script src="/vendor/dynatable/jquery.dynatable.js"></script>
-<script src="/vendor/underscore.min.js"></script>
+<script src="/vendor/ejs/ejs.min.js"></script>
 
 <script type="text/javascript">
   var cards = <%-JSON.stringify(cards)%>;
-  _.templateSettings = {
-    interpolate: /\{\{(.+?)\}\}/g
-  };
+
   $(function(){
-    var ulTemplate = _.template($("#row-template").text());
+    var ulTemplate = ejs.compile($("#row-template").text(), {open: '<#', close: '#>'});
 
     var ulWriter = function(rowIndex, data){
       return ulTemplate(data);
