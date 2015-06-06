@@ -2,6 +2,33 @@ var db = require('./database');
 var Promise = require('bluebird');
 
 var card = function(){
+
+  var addCardQuery = function(cards) {
+    var query = "INSERT INTO `card` \
+           (\
+             `set_id`, \
+             `card_name`, \
+             `currency`, \
+             `cost_min`, \
+             `cost_mid`, \
+             `cost_max`\
+           ) VALUES ";
+
+    var values = [];
+    cards.forEach(function(card) {
+      if (card)
+        values.push("(\
+              1, \
+          \"" + card.name + "\", \
+            \"$\", \
+            " + card.min + ", \
+            " + card.mid + ", \
+            " + card.max + " \
+          )");
+      })
+    return query + values.join(", ")
+  };
+
   var addSet = function(name){
     var connection = db();
     connection.connect();
@@ -38,7 +65,7 @@ var card = function(){
       if (err) throw err;
       else console.log(rows);
     });
-  }
+  };
 
   var removeSet = function(){
     var connection = db();
@@ -53,29 +80,17 @@ var card = function(){
     connection.end();
   };
 
-  var addCard = function(card){
+  var addCards = function(cards){
     var defer = Promise.pending();
     var connection = db();
     connection.connect();
 
+    var query = addCardQuery(cards);
+    console.log(query);
+
     connection.query(
-      "INSERT INTO `card` \
-      (\
-        `set_id`, \
-        `card_name`, \
-        `currency`, \
-        `cost_min`, \
-        `cost_mid`, \
-        `cost_max`\
-      ) VALUES (\
-        1, \
-        '"+ card.name +"', \
-        '$', \
-        '"+ card.min +"', \
-        '"+ card.mid +"', \
-        '"+ card.max +"' \
-      )"
-      , function(err, result) {
+      query,
+      function(err, result) {
         if (err)
           throw err;
         defer.fulfill(result.insertId);
@@ -105,28 +120,12 @@ var card = function(){
     connection.connect();
     var queryString = "SELECT * from card ";
     connection.query(queryString, function(err, rows, fields) {
-      if (err) {
-        defer.reject(err);
-        console.log('Error while performing Query.');
-      } else {
+      if (!err) {
         defer.fulfill(rows);
-      }
-    });
-
-    connection.end();
-    return defer.promise;
-  };
-
-  var findCard = function(name){
-    var defer = Promise.pending();
-    var connection = db();
-    connection.connect();
-    var queryString = "SELECT * from card where card_name like '%"+name+"%'";
-    connection.query(queryString, function(err, result) {
-      if (err) {
+      } else {
         defer.reject(err);
         console.log('Error while performing Query.');
-      } else defer.fulfill(result);
+      }
     });
 
     connection.end();
@@ -136,9 +135,9 @@ var card = function(){
   return {
     addSet: addSet,
     getCard: getCard,
-    addCard: addCard,
+    addCards: addCards,
     getAllCards: getAllCards,
-    findCard: findCard
+    batchAddSets: batchAddSets
   }
 };
 
