@@ -1,9 +1,89 @@
 <% include header %>
+<h1>Shop</h1>
+<p>Purchase your cards</p>
+
+
+
+
+<ul class="row cards-list">
+  <li class="user-cards col-lg-2 col-md-3 col-sm-4 col-xs-6">
+    <img src="http://i.tcgplayer.com/82245.jpg" alt="" class="thumbnail" />
+    <strong class="cards-name">#NAME</strong>
+    <i class="card-set">#SET</i>
+    <span class="card-price">$$$$</span>
+    <div class="pull-left box-quantity">
+      <input class="form-control" type="number" data-fv-integer-message="The value is not an integer" data-fv-field="number">
+    </div>
+    <button type="submit" class="btn btn-primary" href="#">Buy</button>
+  </li>
+  <li class="user-cards col-lg-2 col-md-3 col-sm-4 col-xs-6">
+    <img src="http://i.tcgplayer.com/82245.jpg" alt="" class="thumbnail" />
+    <strong class="cards-name">#NAME</strong>
+    <i class="card-set">#SET</i>
+    <span class="card-price">$$$$</span>
+    <div class="pull-left box-quantity">
+      <input class="form-control" type="number" data-fv-integer-message="The value is not an integer" data-fv-field="number">
+    </div>
+    <button type="submit" class="btn btn-primary" href="#">Buy</button>
+  </li>
+  <li class="user-cards col-lg-2 col-md-3 col-sm-4 col-xs-6">
+    <img src="http://i.tcgplayer.com/82245.jpg" alt="" class="thumbnail" />
+    <strong class="card-name">#NAME</strong>
+    <i class="card-set">#SET</i>
+    <span class="card-price">$$$$</span>
+    <div class="pull-left box-quantity">
+      <input class="form-control" type="number" data-fv-integer-message="The value is not an integer" data-fv-field="number">
+    </div>
+    <button type="submit" class="btn btn-primary" href="#">Buy</button>
+  </li>
+  <li class="user-cards col-lg-2 col-md-3 col-sm-4 col-xs-6">
+    <img src="http://i.tcgplayer.com/82245.jpg" alt="" class="thumbnail" />
+    <strong class="card-name">#NAME</strong>
+    <i class="card-set">#SET</i>
+    <span class="card-price">$$$$</span>
+    <div class="pull-left box-quantity">
+      <input class="form-control" type="number" data-fv-integer-message="The value is not an integer" data-fv-field="number">
+    </div>
+    <button type="submit" class="btn btn-primary" href="#">Buy</button>
+  </li>
+  <li class="user-cards col-lg-2 col-md-3 col-sm-4 col-xs-6">
+    <img src="http://i.tcgplayer.com/82245.jpg" alt="" class="thumbnail" />
+    <strong class="card-name">#NAME</strong>
+    <i class="card-set">#SET</i>
+    <span class="card-price">$$$$</span>
+    <div class="pull-left box-quantity">
+      <input class="form-control" type="number" data-fv-integer-message="The value is not an integer" data-fv-field="number">
+    </div>
+    <button type="submit" class="btn btn-primary" href="#">Buy</button>
+  </li>
+  <li class="user-cards col-lg-2 col-md-3 col-sm-4 col-xs-6">
+    <img src="http://i.tcgplayer.com/82245.jpg" alt="" class="thumbnail" />
+    <strong class="card-name">#NAME</strong>
+    <i class="card-set">#SET</i>
+    <span class="card-price">$$$$</span>
+    <div class="pull-left box-quantity">
+      <input class="form-control" type="number" data-fv-integer-message="The value is not an integer" data-fv-field="number">
+    </div>
+    <button type="submit" class="btn btn-primary" href="#">Buy</button>
+  </li>
+  <li class="user-cards col-lg-2 col-md-3 col-sm-4 col-xs-6">
+    <img src="http://i.tcgplayer.com/82245.jpg" alt="" class="thumbnail" />
+    <strong class="card-name">#NAME</strong>
+    <i class="card-set">#SET</i>
+    <span class="card-price">$$$$</span>
+    <div class="pull-left box-quantity">
+      <input class="form-control" type="number" data-fv-integer-message="The value is not an integer" data-fv-field="number">
+    </div>
+    <button type="submit" class="btn btn-primary" href="#">Buy</button>
+  </li>
+</ul>
+
+
 
 <table id="card-table" class="table table-striped" >
   <thead>
       <th data-dynatable-column="set_name">Set</th>
-      <th data-dynatable-column="card_name">Name</th>
+      <th data-dynatable-column="card_name"> Name</th>
       <th data-dynatable-column="cost_mid">Cost</th>
   </thead>
   <tbody>
@@ -18,14 +98,14 @@
   var cards = <%-JSON.stringify(cards)%>;
   $('#card-table').dynatable({
     dataset: {
-      records: cards
-    },
-    table: {
-      defaultColumnIdStyle: 'underscore'
-    },
-    features: {
+      records: cards,
+      features: {
           pushState: false
       },
+      table: {
+        defaultColumnIdStyle: 'underscore'
+      }
+    }
   });
 </script>
 
