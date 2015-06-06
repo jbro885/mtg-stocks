@@ -4,8 +4,6 @@
 <ul id="cards" class="row cards-list">
 </ul>
 
-
-
 <script type="ejs-template" id="row-template">
   <li class="user-cards col-lg-2 col-md-3 col-sm-4 col-xs-6">
       <img src="http://i.tcgplayer.com/82245.jpg" alt="" class="thumbnail" />
@@ -30,29 +28,34 @@
   var cards = <%-JSON.stringify(cards)%>;
 
   $(function(){
-    var ulTemplate = ejs.compile($("#row-template").text(), {open: '<#', close: '#>'});
+    ejs.open = '<#';
+    ejs.close = '#>';
+    var ulTemplate = ejs.compile($("#row-template").text());
 
+    var ulWriter2 = function(rowIndex, data){
+      return '<li><button type="submit" class="btn btn-primary" href="#">Buy</button></li>';
+    };
     var ulWriter = function(rowIndex, data){
-      return ulTemplate(data);
+      return ulTemplate(data, {open: '<#-', close: '#>'});
     };
 
-
     var dynatable = $('#cards').dynatable({
+      table: {
+        bodyRowSelector: 'li'
+      },
       dataset: {
-        records: cards
+        records: cards,
+        perPageDefault: 100,
+        perPageOptions: [100, 500, 1000]
       },
       features: {
           pushState: false,
-          search: false,
-          recordCount: false,
-          perPageSelect: false,
-          sort: true
+          sort: false
       },
       writers: {
           _rowWriter: ulWriter
       }
     }).data('dynatable');
-    dynatable.dom.update();
 
   });
 </script>
