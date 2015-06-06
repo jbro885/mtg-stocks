@@ -32,7 +32,7 @@ var portfolio = function(){
     connection.connect();
     //get quantity of each card in the user's portfolio
     var defer = Promise.pending();
-      connection.query('SELECT c.cards_id, p.quantity, c.card_name from portfolio p join card c on p.cards_id = c.cards_id where p.user_id  = ' + userid, function(err, rows, fields) {
+    connection.query('SELECT c.cards_id, p.quantity, c.card_name from portfolio p join card c on p.cards_id = c.cards_id where p.user_id  = ' + userid, function(err, rows, fields) {
       if (!err) {
         defer.fulfill(rows);
       } else {
@@ -63,28 +63,27 @@ var portfolio = function(){
   };
 
   var sellCard = function(userid, cards_id, quantity){
-    var connection = db();
-    connection.connect();
-    var defer = Promise.pending();
     //do you own the card? how many? cap sell at user owned quantity.
     //get the price
     //compute sold dollar amount
     //decrement portfolio for cards_id
     //update user balance
 
-    connection.query('SELECT 1 + 1 AS solution', function(err, rows, fields) {
-      if (!err) {
-        console.log('You sold ' + rows[0].solution + ' of card ' + cards_id);
-        defer.fulfill({'cards_id': cards_id, 'quantity':7});
-      } else {
-        defer.reject(err);
-        console.log('Error while performing Query.');
-      }
-    });
+      var connection = db();
+      connection.connect();
+      var defer = Promise.pending();
+      var portfolio_item = [userid, cards_id, quantity];
+      var query = "CALL sellCard(?, ?, ?);";
 
-    connection.end();
-    return defer.promise;
-  };
+      connection.query(query, portfolio_item, function(err, result) {
+        if (err)
+          throw err;
+        defer.fulfill(result.insertId);
+      });
+      connection.end();
+
+      return defer.promise;
+    };
 
   return {
     sellCard: sellCard,

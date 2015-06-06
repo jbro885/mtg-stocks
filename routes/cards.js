@@ -5,9 +5,8 @@ var cardService = require('../data/card');
 
 router.get('/', function(req, res) {
 
-  var user = userService.getById(2)
-    .then(function(users){
-      var user = users[0];
+  userService.getUser(2)
+    .then(function(user){
 
       cardService.getAllCards()
         .then(function(cards){
