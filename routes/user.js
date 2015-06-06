@@ -32,9 +32,9 @@ router.post('/user/cards', function(req, res) {
 
 router.delete('/user/cards', function(req, res) {
 
-  var userId = req.params.user_id;
-  var cardId = req.params.card_id;
-  var quantity = req.params.quantity;
+  var userId = parseInt(req.param('user_id'));
+  var cardId = parseInt(req.param('card_id'));
+  var quantity = parseInt(req.param('quantity'));
 
   portfolioService.sellCard(userId, cardId, quantity)
     .then(function() {

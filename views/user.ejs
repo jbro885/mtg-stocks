@@ -36,7 +36,7 @@
 <% for(var i=0; i<user.cards.length; i++) {
   var card =  user.cards[i];%>
 
-  <li class="user-cards col-lg-2 col-md-3 col-sm-4 col-xs-6" id="item-<%= card.card_id %>-<%= user.card_id %>" data-card-id="<%= card.cards_id %>" data-user-id="<%= user.user_id %>">
+  <li class="user-cards col-lg-2 col-md-3 col-sm-4 col-xs-6" id="item-<%= card.cards_id %>-<%= user.user_id %>" data-card-id="<%= card.cards_id %>" data-user-id="<%= user.user_id %>">
       <img src="http://i.tcgplayer.com/82245.jpg" alt="<%-card.cardname%>" class="thumbnail">
       <strong class="card-name"><%-card.cardname%></strong>
       <p><strong>You have <%-card.quantity%> card<% if (user.cards.lengths > 1) { %>s<% } %></strong><br />
@@ -46,7 +46,7 @@
         <div class="pull-left box-quantity">
           <input class="form-control" type="number" data-fv-integer-message="The value is not an integer" data-fv-field="number">
         </div>
-        <button type="submit" class="btn btn-primary sell-button" data-id="item-<%= card.card_id %>-<%= card.user_id %>"  role="button">
+        <button type="submit" class="btn btn-primary sell-button" data-id="item-<%= card.cards_id %>-<%= user.user_id %>"  role="button">
           Sell
         </button>
   </li>
