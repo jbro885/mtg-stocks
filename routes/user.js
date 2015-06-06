@@ -1,20 +1,17 @@
 var express = require('express');
 var userService = require('../data/user');
 var portfolioService = require('../data/portfolio');
+var promise = require('bluebird');
 
 var router = express.Router();
 
 router.get('/user', function(req, res) {
-  userService.getUser(2)
-    .then(function(user){
 
-      portfolioService.getPortfolio(2)
-        .then(function(cards){
-          user.cards = cards;
-          res.render('user', { user: user, title: 'Users' });
-        });
+  promise.join(userService.getUser(2), portfolioService.getPortfolio(2), function(user, cards){
+    user.cards = cards;
+    res.render('user', { user: user, title: 'Users' });
+  });
 
-    });
 });
 
 router.post('/user/cards', function(req, res) {
