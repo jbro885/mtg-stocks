@@ -7,7 +7,7 @@ var promise = require('bluebird');
 router.get('/', function(req, res) {
 
   promise.join(userService.getUser(2), portfolioService.getPortfolio(2), function(user, cards){
-    res.render('index', { user: {}, title: 'MTG' });
+    res.render('index', { user: user, title: 'MTG' });
   });
 
 });

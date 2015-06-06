@@ -45,7 +45,7 @@
         <li<% if (title === 'Leaderboard') { %> class="active"<% } %>><a href="/leaders">Leaderboard</a></li>
         <li class="divider"></li>
       </ul>
-      <% if ( user ) { %>
+      <% if ( typeof user !== 'undefined') { %>
       <ul class="user-info">
         <li><strong>Welcome <%-user.username%></strong></li>
         <li><strong>Your Balance:</strong> <%-money(user.balance)%></li>
