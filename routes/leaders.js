@@ -1,20 +1,25 @@
 var express = require('express');
 var router = express.Router();
+var userService = require('../data/user');
+var portfolioService = require('../data/portfolio');
 
 router.get('/', function(req, res) {
 
-  var user = userService.getById(2)
-    .then(function(users){
-      var user = users[0];
+  var leaders;
+  user = userService.getLeaders()
+    .then(function (user) {
+      var leaderList = [];
+      user.forEach(function (userLeader) {
+        portfolioService.getPortfolio(userLeader.user_id)
+          .then(function (cards) {
+            cards.user = userLeader;
+            leaderList.push(cards);
+          });
+      });
 
-      portfolioService.getPortfolio(2)
-        .then(function(cards){
-          user.cards = cards;
-          res.render('leaders', { user: user, title: 'MTG' });
-        });
+      res.render('leaders', {leaderList: leaderList, title: 'Leaders'});
 
     });
-  res.render('leaders', {})
 
 });
 

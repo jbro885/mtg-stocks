@@ -3,6 +3,7 @@ var Promise = require('bluebird');
 
 var user = function(){
 
+  var getLeaders;
   var addUser = function(name, password){
     var defer = Promise.pending();
     var connection = db();
@@ -39,13 +40,12 @@ var user = function(){
     return defer.promise;
   };
 
-  var getLeaders = function(){
+  var getLeaders = function () {
     var defer = Promise.pending();
     var connection = db();
     connection.connect();
-    var queryString = "SELECT username, balance FROM user ORDER BY balance DESC LIMIT 10";
-    connection.query(queryString, function(err, rows, fields) {
-      connection.end();
+    var queryString = "SELECT user_id, username, balance FROM user ORDER BY balance DESC LIMIT 10";
+    connection.query(queryString, function (err, rows, fields) {
       if (err) {
         defer.reject(err);
         console.log('Error while performing Query.');
@@ -53,7 +53,7 @@ var user = function(){
         defer.fulfill(rows);
       }
     });
-
+    connection.end();
     return defer.promise;
   };
 
