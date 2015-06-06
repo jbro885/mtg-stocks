@@ -3,21 +3,8 @@
  */
 var user = require('../data/portfolio');
 describe("A portfolio", function() {
-  it("it exists", function() {
-    var results;
+  it("it exists", function(done) {
 
-    waitsFor( function()
-    {
-      return result;
-    });
-
-
-    expect(results.length).toBeGreaterThan(1);
-
-
-    portfolio.getPortfolio(1).then(function(){
-
-    });
-
+    done();
   });
 });
