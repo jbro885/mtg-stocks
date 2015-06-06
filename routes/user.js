@@ -17,6 +17,13 @@ router.get('/user', function(req, res) {
     });
 });
 
+router.get('/user/graph', function(req, res) {
+  userService.getUser(2)
+    .then(function(user) {
+      res.render('netWorthGraph', {user: user, title: 'Users'});
+    });
+});
+
 router.post('/user/cards', function(req, res) {
 
   var userId = parseInt(req.param('user_id'));

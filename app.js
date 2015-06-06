@@ -1,12 +1,10 @@
-
-
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
+var d3 = require('d3');
 
 var leaders = require('./routes/leaders');
 var routes = require('./routes/index');
@@ -16,6 +14,7 @@ var cards = require('./routes/cards');
 var app = express();
 
 // view engine setup
+app.locals.money = d3.format("$,.2f");
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
