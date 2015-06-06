@@ -1,5 +1,5 @@
 <% include header %>
-<h1>Profile</h1>
+<h1>Portfolio</h1>
 <% if (user.cards.length == 0) { %>
 
 <div class="no-results">
@@ -20,7 +20,7 @@
     <div class="caption">
       <p><strong>You have <%-card.quantity%> cards</strong><br />
       Each will sell for: $0.32</p>
-      
+
       <h4>How many would you like to sell?</h4>
         <div class="pull-left box-quantity">
           <input class="form-control" type="number" data-fv-integer-message="The value is not an integer" data-fv-field="number">
@@ -28,7 +28,7 @@
           <a href="#" class="btn btn-primary" role="button">
             Sell Cards
           </a>
-    
+
     </div>
   </div>
 
