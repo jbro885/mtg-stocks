@@ -1,26 +1,50 @@
-<% page = "Shop" %>
 <% include header %>
 
+<div class="alert alert-success" style="display:none" >
+  <a href="#" class="close" data-dismiss="alert">&times;</a>
+  <div id="message" >asdf </div>
+</div>
+
 <ul id="cards" class="row cards-list">
- <script type="ejs-template" id="row-template">
+  <script type="ejs-template" id="row-template">
     <li class="user-cards col-lg-2 col-md-3 col-sm-4 col-xs-6">
-        <img src="http://i.tcgplayer.com/82245.jpg" alt="" class="thumbnail" />
-        <strong class="cards-name"> {{card_name}} </strong>
-        <i class="card-set"> {{set_name}} </i>
-        <span class="card-price">{{currency}}{{cost_mid}}</span>
-        <div class="pull-left box-quantity">
-          <input class="form-control" type="number" data-fv-integer-message="The value is not an integer" data-fv-field="number">
-        </div>
-        <button type="submit" class="btn btn-primary" href="#">Buy</button>
+      <img src="http://i.tcgplayer.com/82245.jpg" alt="" class="thumbnail" />
+      <strong class="cards-name"> {{card_name}} </strong>
+      <i class="card-set"> {{set_name}} </i>
+      <span class="card-price">{{currency}}{{cost_mid}}</span>
+      <div class="pull-left box-quantity">
+        <input class="quantity form-control" type="number" data-fv-integer-message="The value is not an integer" data-fv-field="number">
+      </div>
+      <button type="submit" class="buy-button btn btn-primary" data-card-id="{{cards_id}}" role="button">Buy</button>
     </li>
- </script>
+  </script>
 </ul>
 
 <script type="text/javascript">
 
   $(function(){
+    var success = function(){
+      $("#message").text("Successfully purchased card.");
+      $(".alert").show();
+    };
+
+    var error = function(){
+      $("#message").text("Failure!");
+      $(".alert").show();
+    };
+
     var cards = <%-JSON.stringify(cards)%>;
     var mtgDynatable = MtgDynatable("#cards", "#row-template", cards);
+
+    $('.buy-button').click(function(){
+      var quantity = $(this).parent().find(".quantity").val();
+      var card_id = $(this).data('card-id');
+      var user_id = <%-user.user_id%>;
+
+      portfolio.buy({user_id: user_id, card_id: card_id, quantity: quantity}, success, error);
+    });
   });
 </script>
 
+
+<% include footer %>

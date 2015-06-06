@@ -19,9 +19,9 @@ router.get('/user', function(req, res) {
 
 router.post('/user/cards', function(req, res) {
 
-  var userId = req.param('user_id');
-  var cardId = req.param('card_id');
-  var quantity = req.param('quantity');
+  var userId = parseInt(req.param('user_id'));
+  var cardId = parseInt(req.param('card_id'));
+  var quantity = parseInt(req.param('quantity'));
 
   portfolioService.buyCard(userId, cardId, quantity)
     .then(function() {
