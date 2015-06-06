@@ -7,45 +7,6 @@ var Promise = require('bluebird');
 
 var portfolio = function(){
 
-  var addCard = function(userid, cards_id, quantity){
-    var connection = db();
-    connection.connect();
-    var defer = Promise.pending();
-    //get quantity of this card in the user's existing portfolio
-    //need to add to existing portfolio for this card
-    connection.query('UPDATE ignore portfolio set quantity=quantity+' + quantity + ' where user_id=' + userid + ' and cards_id = ' + cards_id, function(err, result) {
-      if (!err) {
-        console.log('You added quantity ' + quantity + ' to cards_id ' + cards_id);
-        defer.fulfill(result);
-      } else {
-        defer.reject(err);
-        console.log('Error while performing Query.');
-      }
-    });
-
-    connection.end();
-    return defer.promise;
-  };
-
-  var getCard = function(userid, cards_id){
-    var connection = db();
-    connection.connect();
-    var defer = Promise.pending();
-    //get quantity of this card in the user's existing portfolio
-    connection.query('SELECT quantity AS quantity from portfolio where user_id=' + userid + ' and cards_id = ' + cards_id, function(err, rows, fields) {
-      if (!err) {
-        console.log('You own ' + rows[0].quantity + ' of card ' + cards_id);
-        defer.fulfill({"cards_id": cards_id, "quantity": rows[0].quantity});
-      } else {
-        defer.reject(err);
-        console.log('Error while performing Query.');
-      }
-    });
-
-    connection.end();
-    return defer.promise;
-  };
-
   var sellCard = function(userid, cards_id, quantity){
     var connection = db();
     connection.connect();
@@ -89,19 +50,7 @@ var portfolio = function(){
     connection.connect();
     var defer = Promise.pending();
     var portfolio_item = [userid, cards_id, quantity];
-    var query = " \
-    select @user_id := ?, @cards_id := ?, @quantity := ?; \
-    select @cost := cost_mid \
-    from card \
-    where cards_id = @cards_id; \
-    \
-    INSERT INTO `portfolio`(user_id, cards_id, quantity) \
-    VALUES ( @user_id, @cards_id, @quantity) \
-    ON DUPLICATE KEY UPDATE quantity = quantity + @quantity; \
-    \
-    update user \
-    set balance = ifnull(balance, 0) - (@cost * @quantity) \
-    where user_id = @user_id";
+    var query = "CALL buyCard(?, ?, ?);";
 
     connection.query(query, portfolio_item, function(err, result) {
       if (err)
@@ -138,9 +87,7 @@ var portfolio = function(){
   };
 
   return {
-    addCard: addCard,
     sellCard: sellCard,
-    getCard: getCard,
     getPortfolio: getPortfolio,
     buyCard: buyCard
   }
