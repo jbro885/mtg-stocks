@@ -2,6 +2,7 @@
  * Created by remaus on 6/5/2015.
  */
 var db = require('./database');
+var card = require('/card');
 var Promise = require('bluebird');
 
 
@@ -88,18 +89,24 @@ var portfolio = function(){
     var connection = db();
     connection.connect();
     var defer = Promise.pending();
-    //get quantity of this card in the user's existing portfolio
-    connection.query('SELECT 1 + 1 AS solution', function(err, rows, fields) {
-      if (!err) {
-        console.log('You purchased ' + rows[0].solution + ' of card ' + cards_id);
-        defer.fulfill({'cards_id':cards_id, 'quantity':rows[0].solution});
-      } else {
-        defer.reject(err);
-        console.log('Error while performing Query.');
-      }
-    });
+    var portfolio_item = [userid, cards_id, quantity, quantity];
+    var query = "INSERT INTO `portfolio`(user_id, cards_id, quantity) \
+      VALUES ( ?, ?, ?) \
+      ON DUPLICATE KEY UPDATE quantity = quantity + ?;";
 
-    connection.end();
+    cardService.getCard(userid, cards_id)
+      .then(function(cards){
+        connection.query(
+          query,
+          portfolio_item,
+          function(err, result) {
+            if (err)
+              throw err;
+            defer.fulfill(result.insertId);
+          });
+        connection.end();
+      });
+
     return defer.promise;
   };
 
