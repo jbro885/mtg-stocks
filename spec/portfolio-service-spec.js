@@ -24,11 +24,9 @@ describe("A portfolio", function() {
         expect(user.balance).toBeLessThan(balance);
       })
       .then(done);
-
   });
 
   it("can sell cards", function(done) {
-
     var balance = 0;
 
     user.getUser(2)
