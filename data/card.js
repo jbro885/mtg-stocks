@@ -141,17 +141,10 @@ var card = function(){
     var defer = Promise.pending();
     var connection = db();
     connection.connect();
-<<<<<<< HEAD
+
     var queryString = "select c.*, s.set_name from card c join `set` s on c.set_id = s.set_id";
     connection.query(queryString, function(err, rows, fields) {
-=======
-    var queryString = "SELECT card.*, \
-                        set.set_name \
-                      FROM card \
-                      LEFT JOIN set ON card.set_id = set.set_id";
-    connection.query(queryString, 
-      function(err, rows, fields) {
->>>>>>> 24c6808df559ac8dd78d131da740fa6abf2c077b
+
       if (!err) {
         defer.fulfill(rows);
       } else {
