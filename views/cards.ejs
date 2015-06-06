@@ -4,8 +4,6 @@
 <ul id="cards" class="row cards-list">
 </ul>
 
-
-
 <script type="ejs-template" id="row-template">
   <li class="user-cards col-lg-2 col-md-3 col-sm-4 col-xs-6">
       <img src="http://i.tcgplayer.com/82245.jpg" alt="" class="thumbnail" />
@@ -19,48 +17,11 @@
   </li>
 </script>
 
-
-
-<link rel="stylesheet" href="/vendor/dynatable/jquery.dynatable.css">
-<script src="/vendor/jquery/jquery-1.11.3.min.js"></script>
-<script src="/vendor/dynatable/jquery.dynatable.js"></script>
-<script src="/vendor/underscore.min.js"></script>
-
 <script type="text/javascript">
-  var cards = <%-JSON.stringify(cards)%>;
 
   $(function(){
-
-    _.templateSettings = {
-      interpolate: /\{\{(.+?)\}\}/g
-    };
-
-    var ulTemplate = _.template($("#row-template").text());
-
-    var ulWriter = function(rowIndex, data){
-      return ulTemplate(data);
-    };
-
-
-    var dynatable = $('#cards').dynatable({
-      table: {
-        bodyRowSelector: 'li'
-      },
-      dataset: {
-        records: cards,
-        perPageDefault: 100,
-        perPageOptions: [100, 500, 1000]
-      },
-      features: {
-          pushState: false,
-          sort: false
-      },
-      writers: {
-          _rowWriter: ulWriter
-      }
-    }).data('dynatable');
-    dynatable.dom.update();
-
+    var cards = <%-JSON.stringify(cards)%>;
+    var mtgDynatable = MtgDynatable("#cards", "#row-template", cards);
   });
 </script>
 

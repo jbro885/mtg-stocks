@@ -10,7 +10,7 @@ router.get('/', function(req, res) {
 
       cardService.getAllCards()
         .then(function(cards){
-          res.render('cards', { user: user, cards: cards, title: 'Cards' });
+          res.render('cards', { user: user, cards: cards, title: 'Shop' });
         });
 
     });
