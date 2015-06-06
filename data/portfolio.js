@@ -88,18 +88,28 @@ var portfolio = function(){
     var connection = db();
     connection.connect();
     var defer = Promise.pending();
-    //get quantity of this card in the user's existing portfolio
-    connection.query('SELECT 1 + 1 AS solution', function(err, rows, fields) {
-      if (!err) {
-        console.log('You purchased ' + rows[0].solution + ' of card ' + cards_id);
-        defer.fulfill({'cards_id':cards_id, 'quantity':rows[0].solution});
-      } else {
-        defer.reject(err);
-        console.log('Error while performing Query.');
-      }
-    });
+    var portfolio_item = [userid, cards_id, quantity];
+    var query = " \
+    select @user_id := ?, @cards_id := ?, @quantity := ?; \
+    select @cost := cost_mid \
+    from card \
+    where cards_id = @cards_id; \
+    \
+    INSERT INTO `portfolio`(user_id, cards_id, quantity) \
+    VALUES ( @user_id, @cards_id, @quantity) \
+    ON DUPLICATE KEY UPDATE quantity = quantity + @quantity; \
+    \
+    update user \
+    set balance = ifnull(balance, 0) - (@cost * @quantity) \
+    where user_id = @user_id";
 
+    connection.query(query, portfolio_item, function(err, result) {
+      if (err)
+        throw err;
+      defer.fulfill(result.insertId);
+    });
     connection.end();
+
     return defer.promise;
   };
 
