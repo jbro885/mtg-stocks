@@ -26,7 +26,7 @@
 <ul class="user-info">
   <li><strong>Welcome <%-user.username%></strong></li>
   <li><strong>Your Balance:</strong> $<%-user.balance%></li>
-  <li><strong>Your Net Worth:</strong> $$$$</li>
+  <li><strong>Your Net Worth:</strong> $<%-user.balance + user.card_balance %></li>
 </ul>
 <% } else { %>
 <ul class="user-info">

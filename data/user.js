@@ -26,8 +26,15 @@ var user = function(){
     var defer = Promise.pending();
     var connection = db();
     connection.connect();
-    var queryString = "SELECT user_id, username, balance from user where user_id="+id;
-    connection.query(queryString, function(err, rows, fields) {
+    var queryString = " \
+    SELECT u.user_id, u.username, u.balance, IFNULL(SUM(p.quantity * c.cost_mid), 0) as card_balance \
+    FROM user u \
+    LEFT OUTER JOIN portfolio p on u.user_id = p.user_id \
+    LEFT OUTER JOIN card c on p.cards_id = c.cards_id \
+    WHERE p.user_id  = ? \
+    GROUP BY u.user_id, u.username, u.balance";
+
+    connection.query(queryString, [id], function(err, rows, fields) {
       connection.end();
       if (!err) {
         defer.fulfill(rows[0]);
