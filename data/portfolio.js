@@ -46,7 +46,7 @@ var portfolio = function(){
     return defer.promise;
   };
 
-  var removeCard = function(userid, cards_id, quantity){
+  var sellCard = function(userid, cards_id, quantity){
     var connection = db();
     connection.connect();
     var defer = Promise.pending();
