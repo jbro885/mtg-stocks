@@ -30,10 +30,10 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li><a href="/cards">Shop</a></li>
-        <li><a href="/user">Portfolio</a></li>
-        <li><a href="/history">History</a></li>
-        <li><a href="/leader">Leaderboard</a></li>
+        <li<% if (page === 'Shop') { %> class="active"<% } %>><a href="/cards">Shop</a></li>
+        <li<% if (page === 'Portfolio') { %> class="active"<% } %>><a href="/user">Portfolio</a></li>
+        <li<% if (page === 'History') { %> class="active"<% } %>><a href="/history">History</a></li>
+        <li<% if (page === 'Leaderboard') { %> class="active"<% } %>><a href="/leader">Leaderboard</a></li>
         <li class="divider"></li>
       </ul>
     </div><!-- /.navbar-collapse -->
