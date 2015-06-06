@@ -30,7 +30,12 @@
   var cards = <%-JSON.stringify(cards)%>;
 
   $(function(){
-    var ulTemplate = ejs.compile($("#row-template").text(), {open: '<#', close: '#>'});
+
+    _.templateSettings = {
+      interpolate: /\{\{(.+?)\}\}/g
+    };
+
+    var ulTemplate = _.template($("#row-template").text());
 
     var ulWriter = function(rowIndex, data){
       return ulTemplate(data);
