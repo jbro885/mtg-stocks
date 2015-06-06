@@ -3,7 +3,7 @@ var router = express.Router();
 var userService = require('../data/user');
 var portfolioService = require('../data/portfolio');
 
-router.get('/', function(req, res) {
+router.get('/leaders', function(req, res) {
 
   var leaders;
   userService.getLeaders()

@@ -3,7 +3,7 @@ var router = express.Router();
 var userService = require('../data/user');
 var portfolioService = require('../data/portfolio');
 
-router.get('/', function(req, res) {
+router.get('/user', function(req, res) {
   userService.getUser(2)
     .then(function(user){
 
@@ -16,7 +16,7 @@ router.get('/', function(req, res) {
     });
 });
 
-router.post('/', function(req, res) {
+router.post('/user', function(req, res) {
 
   var userId = req.param('user_id');
   var cardId = req.param('card_id');
@@ -29,7 +29,7 @@ router.post('/', function(req, res) {
 
 });
 
-router.delete('/', function(req, res) {
+router.delete('/user', function(req, res) {
 
   var userId = req.param('user_id');
   var cardId = req.param('card_id');

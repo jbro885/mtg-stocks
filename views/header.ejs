@@ -11,15 +11,17 @@
   <% if (ENV_DEVELOPMENT) { %>
     <script src="http://localhost:35729/livereload.js"></script>
   <% } %>
+
   <script src="/vendor/jquery/jquery-1.11.3.min.js"></script>
   <script src="/vendor/dynatable/jquery.dynatable.js"></script>
   <script src="/vendor/underscore.min.js"></script>
   <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
   <script src="/js/mtgDynatable.js"></script>
+  <script src="/js/portfolio.js"></script>
+
 </head>
 
 <body>
-<% user = user || false %>
 <% if ( user ) { %>
 <ul class="user-info">
   <li><strong>Welcome <%-user.username%></strong></li>
@@ -52,4 +54,4 @@
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
-</body>
+

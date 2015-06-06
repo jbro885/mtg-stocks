@@ -3,7 +3,7 @@ var router = express.Router();
 var userService = require('../data/user');
 var cardService = require('../data/card');
 
-router.get('/', function(req, res) {
+router.get('/cards', function(req, res) {
 
   userService.getUser(2)
     .then(function(user){
