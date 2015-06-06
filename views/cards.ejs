@@ -43,15 +43,17 @@
 
 
     var dynatable = $('#cards').dynatable({
+      table: {
+        bodyRowSelector: 'li'
+      },
       dataset: {
-        records: cards
+        records: cards,
+        perPageDefault: 100,
+        perPageOptions: [100, 500, 1000]
       },
       features: {
           pushState: false,
-          search: false,
-          recordCount: false,
-          perPageSelect: false,
-          sort: true
+          sort: false
       },
       writers: {
           _rowWriter: ulWriter
