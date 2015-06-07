@@ -1,27 +1,25 @@
 var express = require('express');
-var router = express.Router();
 var userService = require('../data/user');
 var portfolioService = require('../data/portfolio');
+var promise = require('bluebird');
 
-router.get('/', function(req, res) {
-  var user = userService.getById(2)
-    .then(function(users){
-      var user = users[0];
+var router = express.Router();
 
-      portfolioService.getPortfolio(2)
-        .then(function(cards){
-          user.cards = cards;
-          res.render('user', { user: user, title: 'Users' });
-        });
+router.get(['/user', '/'], function(req, res) {
 
+  portfolioService.getPortfolio(req.user.user_id)
+    .then(function(cards){
+      user.cards = cards;
+      res.render('user', { user: req.user, title: 'Users' });
     });
+
 });
 
-router.post('/', function(req, res) {
+router.post('/user/cards', function(req, res) {
 
-  var userId = req.param('user_id');
-  var cardId = req.param('card_id');
-  var quantity = req.param('quantity');
+  var userId = parseInt(req.param('user_id'));
+  var cardId = parseInt(req.param('card_id'));
+  var quantity = parseInt(req.param('quantity'));
 
   portfolioService.buyCard(userId, cardId, quantity)
     .then(function() {
@@ -30,18 +28,16 @@ router.post('/', function(req, res) {
 
 });
 
-router.delete('/', function(req, res) {
+router.delete('/user/cards', function(req, res) {
 
-  var userId = req.param('user_id');
-  var cardId = req.param('card_id');
-  var quantity = req.param('quantity');
+  var userId = parseInt(req.param('user_id'));
+  var cardId = parseInt(req.param('card_id'));
+  var quantity = parseInt(req.param('quantity'));
 
   portfolioService.sellCard(userId, cardId, quantity)
     .then(function() {
       res.send(true)
     })
-
-
 });
 
 module.exports = router;

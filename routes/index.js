@@ -2,23 +2,14 @@ var express = require('express');
 var router = express.Router();
 var userService = require('../data/user');
 var portfolioService = require('../data/portfolio');
+var promise = require('bluebird');
 
 router.get('/', function(req, res) {
 
-  var user = userService.getById(2)
-    .then(function(users){
-      var user = users[0];
-
-      portfolioService.getPortfolio(2)
-        .then(function(cards){
-          user.cards = cards;
-          res.render('index', { user: user, title: 'MTG' });
-        });
-
-    });
+  promise.join(userService.getUser(2), portfolioService.getPortfolio(2), function(user, cards){
+    res.render('index', { title: 'MTG' });
+  });
 
 });
-
-
 
 module.exports = router;

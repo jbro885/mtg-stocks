@@ -1,6 +1,14 @@
-var user = require('../data/card');
+var card = require('../data/card');
+var promise = require('bluebird');
 
-user.getAllCards().then(function(rows){
-  console.log(rows);
-});
+promise.all([
+
+  card.getAllCards().then(function(rows){
+    console.log(rows);
+  }),
+  card.findCard('Akroan').then(function(result) {
+    console.log(result);
+  })
+
+]);
 

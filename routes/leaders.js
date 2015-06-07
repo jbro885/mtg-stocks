@@ -1,22 +1,11 @@
 var express = require('express');
 var router = express.Router();
+var userService = require('../data/user');
+var promise = require('bluebird');
 
-router.get('/', function(req, res) {
-
-  var user = userService.getById(2)
-    .then(function(users){
-      var user = users[0];
-
-      portfolioService.getPortfolio(2)
-        .then(function(cards){
-          user.cards = cards;
-          res.render('leaders', { user: user, title: 'MTG' });
-        });
-
-    });
-  res.render('leaders', {})
-
+router.get('/leaders', function(req, res) {
+  res.render('leaders', { user: req.user, leaderList: leaders, title: 'MTG' });
 });
 
-
 module.exports = router;
+

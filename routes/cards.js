@@ -2,19 +2,13 @@ var express = require('express');
 var router = express.Router();
 var userService = require('../data/user');
 var cardService = require('../data/card');
+var promise = require('bluebird');
 
-router.get('/', function(req, res) {
+router.get('/cards', function(req, res) {
 
-  var user = userService.getById(2)
-    .then(function(users){
-      var user = users[0];
-
-      cardService.getAllCards()
-        .then(function(cards){
-          res.render('cards', { user: user, cards: cards, title: 'Cards' });
-        });
-
-    });
+  cardService.getAllCards(function(cards){
+    res.render('cards', { user: req.user, cards: cards, title: 'Shop' });
+  })
 
 });
 

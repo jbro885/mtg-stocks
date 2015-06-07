@@ -1,0 +1,42 @@
+<script type="text/javascript">
+  $(function(){
+
+  var data = [
+    {date: "2011-11-14T16:17:54Z", netWorth: Math.random() * 50},
+    {date: "2011-11-14T16:20:19Z", netWorth: Math.random() * 50},
+    {date: "2011-11-14T16:28:54Z", netWorth: Math.random() * 50},
+    {date: "2011-11-14T16:30:43Z", netWorth: Math.random() * 50},
+    {date: "2011-11-14T16:48:46Z", netWorth: Math.random() * 50},
+    {date: "2011-11-14T16:53:41Z", netWorth: Math.random() * 50},
+    {date: "2011-11-14T16:54:06Z", netWorth: Math.random() * 50},
+    {date: "2011-11-14T16:58:03Z", netWorth: Math.random() * 50},
+    {date: "2011-11-14T17:07:21Z", netWorth: Math.random() * 50},
+    {date: "2011-11-14T17:22:59Z", netWorth: Math.random() * 50},
+    {date: "2011-11-14T17:25:45Z", netWorth: Math.random() * 50},
+    {date: "2011-11-14T18:17:54Z", netWorth: Math.random() * 50},
+    {date: "2011-11-14T18:20:19Z", netWorth: Math.random() * 50}
+  ];
+  var cf = crossfilter(data);
+
+  var timeDimension = cf.dimension(function(d){ return new Date(d.date); });
+  var totalGroup = timeDimension.group().reduceSum(function(d){ return d.netWorth; });
+
+  var lineChart = dc.lineChart("#line-chart")
+    .brushOn(false)
+    .width(200)
+    .height(40)
+    .margins({top: 0, right: 0, bottom: 0, left: 0})
+    .renderArea(true)
+    .x(d3.time.scale().domain(d3.extent(data, function(d){ return new Date(d.date); })))
+    //.y(d3.linear.scale().domain(d3.extent(data, function(d){ return d.netWorth; })))
+    .dimension(timeDimension)
+    .group(totalGroup);
+
+  lineChart.yAxis().ticks(0);
+  lineChart.xAxis().ticks(0)
+
+  dc.renderAll();
+  });
+</script>
+
+<div id="line-chart"></div>
