@@ -11,7 +11,8 @@
 
   };
   $(function(){
-    $('.sell-button').click(function(){
+    $('#sellform').on('submit', function(e){
+      e.preventDefault();
       $card = $('#'+$(this).data("id"));
 
       var userId = $card.data('userId');
@@ -21,21 +22,41 @@
       if(!isNaN(quantity) && parseInt(quantity) > 0) {
         portfolio.sell({user_id: userId, card_id: cardId, quantity: quantity}, success, error)
       }
+    });
+    $('.sell-button').click(function() {
+      $('#sellform').submit();
     })
   });
 
+  function submitTagForm(element) {
+    $card = $('#'+$(element).data("id"));
+
+    var userId = $card.data('userId');
+    var cardId = $card.data('cardId');
+    var tagName = $card.find('.box-tag input').val();
+    alert(tagName);
+    if(tagName !== '') {
+      portfolio.createTag({user_id: userId, card_id: cardId, tag: tagName}, success, error)
+    }
+  }
   $(function(){
-    $('.tag-button').click(function(){
+    $('#tagform').on('submit', function(e){
+      e.preventDefault();
       $card = $('#'+$(this).data("id"));
 
       var userId = $card.data('userId');
       var cardId = $card.data('cardId');
       var tagName = $card.find('.box-tag input').val();
-
+      alert(tagName);
       if(tagName !== '') {
         portfolio.createTag({user_id: userId, card_id: cardId, tag: tagName}, success, error)
       }
-    })
+    });
+    $('tag-button').click(function() {
+      // $('#tagform').submit();
+      e.preventDefault();
+      alert('stop');
+    });
   });
 </script>
 
@@ -54,7 +75,7 @@
 
   <li class="user-cards col-lg-2 col-md-3 col-sm-4 col-xs-6" id="item-<%= card.cards_id %>-<%= user.user_id %>" data-card-id="<%= card.cards_id %>" data-user-id="<%= user.user_id %>">
 
-    <form id="myform">
+    <form id="sellform" data-id="item-<%= card.cards_id %>-<%= user.user_id %>">
       <img src="<%-card.image_url%>" alt="<%-card.card_name%>" class="thumbnail">
       <strong class="card-name"><%-card.card_name%></strong>
       <i class="card-set"> <%-card.set_name%> </i>
@@ -71,18 +92,18 @@
         <div class="pull-left box-quantity">
           <input class="form-control" type="number" min="1" value="<%-card.quantity%>" max="<%-card.quantity%>">
         </div>
-        <button type="submit" class="btn btn-primary sell-button" data-id="item-<%= card.cards_id %>-<%= user.user_id %>"  role="button">
+        <button type="submit" class="btn btn-primary sell-button" role="button">
           Sell
         </button>
       </div>
     </form>
 
-    <form>
+    <form id="tagform" data-id="item-<%= card.cards_id %>-<%= user.user_id %>" onsubmit="event.preventDefault(); submitTagForm(this);">
       <div>
         <div class="pull-left box-tag">
           <input class="form-control" type="text" value="">
         </div>
-        <button type="submit" class="btn btn-primary tag-button" data-id="item-<%= card.cards_id %>-<%= user.user_id %>"  role="button">
+        <button type="submit" class="btn btn-primary tag-button" role="button">
           Tag
         </button>
       </div>
