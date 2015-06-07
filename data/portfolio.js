@@ -38,7 +38,7 @@ var portfolio = function(){
 
     connection.query(query, function(err, rows, fields) {
       if (!err) {
-        defer.fulfill(rows[0]);
+        defer.fulfill(rows);
       } else {
         defer.reject(err);
         console.log('Error while performing Query.');
