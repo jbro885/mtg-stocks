@@ -13,7 +13,7 @@
       <i class="card-set"> {{set_name}} </i>
       <span class="card-price">{{currency}}{{cost_mid}}</span>
       <div class="pull-left box-quantity">
-        <input class="quantity form-control" type="number" data-fv-integer-message="The value is not an integer" data-fv-field="number">
+        <input class="quantity form-control" type="number" min="1" value="1">
       </div>
       <button type="submit" class="buy-button btn btn-primary" data-card-id="{{cards_id}}" role="button">Buy</button>
     </li>
