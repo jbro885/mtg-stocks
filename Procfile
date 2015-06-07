@@ -1,2 +1,2 @@
 web: npm start
-worker: node say_hello.js
+worker: node tools/jobs.js

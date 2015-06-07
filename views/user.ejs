@@ -18,9 +18,13 @@
       var cardId = $card.data('cardId');
       var quantity = $card.find('.box-quantity input').val();
 
-      portfolio.sell({user_id: userId, card_id: cardId, quantity: quantity}, success, error)
+      if(!isNaN(quantity) && parseInt(quantity) > 0) {
+        portfolio.sell({user_id: userId, card_id: cardId, quantity: quantity}, success, error)
+      }
     })
   });
+
+
 </script>
 
 <% if (user.cards.length == 0) { %>
@@ -37,18 +41,21 @@
   var card =  user.cards[i];%>
 
   <li class="user-cards col-lg-2 col-md-3 col-sm-4 col-xs-6" id="item-<%= card.cards_id %>-<%= user.user_id %>" data-card-id="<%= card.cards_id %>" data-user-id="<%= user.user_id %>">
-      <img src="http://i.tcgplayer.com/82245.jpg" alt="<%-card.cardname%>" class="thumbnail">
-      <strong class="card-name"><%-card.cardname%></strong>
-      <p><strong>You have <%-card.quantity%> card<% if (user.cards.lengths > 1) { %>s<% } %></strong><br />
-      <% if (user.cards.lengths > 1) { %>Each<% } else { %>It<% } %> will sell for: <%=card.cost_mid%></p>
 
-      <h4>Choose your quantity to sell</h4>
+    <form id="myform">
+      <img src="<%-card.image_url%>" alt="<%-card.card_name%>" class="thumbnail">
+      <strong class="card-name"><%-card.card_name%></strong>
+      <i class="card-set"> <%-card.set_name%> </i>
+      <p>You have <%-card.quantity%> card<% if (card.quantity > 1) { %>s<% } %><br />
+      Current Price: <%= money(card.cost_mid) %></p>
+
         <div class="pull-left box-quantity">
-          <input class="form-control" type="number" data-fv-integer-message="The value is not an integer" data-fv-field="number">
+          <input class="form-control" type="number" min="1" value="<%-card.quantity%>" max="<%-card.quantity%>">
         </div>
         <button type="submit" class="btn btn-primary sell-button" data-id="item-<%= card.cards_id %>-<%= user.user_id %>"  role="button">
           Sell
         </button>
+    </form>
   </li>
 
     <%  } %>
