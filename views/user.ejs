@@ -43,8 +43,9 @@
   <li class="user-cards col-lg-2 col-md-3 col-sm-4 col-xs-6" id="item-<%= card.cards_id %>-<%= user.user_id %>" data-card-id="<%= card.cards_id %>" data-user-id="<%= user.user_id %>">
 
     <form id="myform">
-      <img src="http://i.tcgplayer.com/82245.jpg" alt="<%-card.card_name%>" class="thumbnail">
+      <img src="<%-card.image_url%>" alt="<%-card.card_name%>" class="thumbnail">
       <strong class="card-name"><%-card.card_name%></strong>
+      <i class="card-set"> <%-card.set_name%> </i>
       <p>You have <%-card.quantity%> card<% if (card.quantity > 1) { %>s<% } %><br />
       Current Price: <%= money(card.cost_mid) %></p>
 
