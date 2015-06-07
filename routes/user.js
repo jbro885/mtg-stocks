@@ -7,18 +7,12 @@ var router = express.Router();
 
 router.get(['/user', '/'], function(req, res) {
 
-  promise.join(userService.getUser(2), portfolioService.getPortfolio(2), function(user, cards){
-    user.cards = cards;
-    res.render('user', { user: user, title: 'Users' });
-  });
-
-});
-
-router.get('/user/graph', function(req, res) {
-  userService.getUser(2)
-    .then(function(user) {
-      res.render('netWorthGraph', {user: user, title: 'Users'});
+  portfolioService.getPortfolio(req.user.user_id)
+    .then(function(cards){
+      user.cards = cards;
+      res.render('user', { user: req.user, title: 'Users' });
     });
+
 });
 
 router.post('/user/cards', function(req, res) {

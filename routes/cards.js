@@ -6,9 +6,9 @@ var promise = require('bluebird');
 
 router.get('/cards', function(req, res) {
 
-  promise.join(userService.getUser(2), cardService.getAllCards(), function(user, cards){
-    res.render('cards', { user: user, cards: cards, title: 'Shop' });
-  });
+  cardService.getAllCards(function(cards){
+    res.render('cards', { user: req.user, cards: cards, title: 'Shop' });
+  })
 
 });
 

@@ -10,6 +10,7 @@ var LocalStrategy = require('passport-local').Strategy;
 
 var userService = require('./data/user');
 
+var index = require('./routes/index');
 var userRoute = require('./routes/user');
 var cards = require('./routes/cards');
 var leaders = require('./routes/leaders');
@@ -37,9 +38,10 @@ app.use(bodyParser.urlencoded({
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use('/', index);
 app.use('/', userRoute);
-app.use('/', cards);
-app.use('/', leaders);
+app.use('/', ensureAuthenticated, cards);
+app.use('/', ensureAuthenticated, leaders);
 
 app.use(passport.initialize());
 app.use(passport.session());
