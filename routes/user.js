@@ -40,4 +40,29 @@ router.delete('/user/cards', function(req, res) {
     })
 });
 
+router.post('/user/tag', function(req, res) {
+
+  var userId = parseInt(req.param('user_id'));
+  var cardId = parseInt(req.param('card_id'));
+  var tagName = req.param('tag');
+
+  portfolioService.createTag(userId, cardId, tagName)
+    .then(function() {
+      res.send(true)
+    })
+
+});
+
+router.delete('/user/tag', function(req, res) {
+
+  var userId = parseInt(req.param('user_id'));
+  var cardId = parseInt(req.param('card_id'));
+  var tagName = req.param('tag');
+
+  portfolioService.deleteTag(userId, cardId, tagName)
+    .then(function() {
+      res.send(true)
+    })
+});
+
 module.exports = router;

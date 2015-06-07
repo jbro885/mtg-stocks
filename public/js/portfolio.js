@@ -13,8 +13,24 @@ var portfolio = function(){
     }).success(success).error(error)
   };
 
+  var createTag = function(data, success, error){
+    $.ajax('/user/tag', {
+      data : data,
+      type: 'POST'
+    }).success(success).error(error)
+  };
+
+  var deleteTag = function(data, success, error){
+    $.ajax('/user/tag', {
+      data : data,
+      type: 'DELETE'
+    }).success(success).error(error)
+  };
+
   return {
     buy: buy,
-    sell: sell
+    sell: sell,
+    createTag: createTag,
+    deleteTag: deleteTag
   }
 }();

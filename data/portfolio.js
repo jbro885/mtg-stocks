@@ -33,11 +33,35 @@ var portfolio = function(){
     //get quantity of each card in the user's portfolio
     var defer = Promise.pending();
 
-    var query = 'SELECT c.cards_id, p.quantity, c.card_name, c.cost_mid, c.image_url, s.set_name from portfolio p join card c on p.cards_id = c.cards_id join `set` s on c.set_id = s.set_id'
+    var query = 'SELECT t.card_id, t.tag_name from tag t where t.user_id = ' + userid + ' and t.is_deleted = 0';
+
+    var tags;
+    connection.query(query, function(err, rows, fields) {
+      if(!err) {
+        console.log("tags:");
+        console.log(rows);
+        tags = rows;
+      } else {
+        console.log(err);
+      }
+    });
+
+    query = 'SELECT c.cards_id, p.quantity, c.card_name, c.cost_mid, c.image_url, s.set_name from portfolio p join card c on p.cards_id = c.cards_id join `set` s on c.set_id = s.set_id'
       + ' where p.quantity > 0 and p.user_id  = ' + userid;
 
     connection.query(query, function(err, rows, fields) {
       if (!err) {
+        for(var i in rows) {
+          card_id = rows[i].cards_id;
+          console.log(card_id);
+          for(var tag in tags) {
+            if(tags[tag].card_id == card_id) {
+              if(rows[i].tags == undefined) rows[i].tags = [];
+              rows[i].tags.push(tags[tag].tag_name);
+              console.log("tag array -->"+rows[i].tags);
+            }
+          }
+        }
         defer.fulfill(rows);
       } else {
         defer.reject(err);
@@ -89,10 +113,42 @@ var portfolio = function(){
       return defer.promise;
     };
 
+    var createTag = function(userId, cardId, tagName){
+      var connection = db();
+      connection.connect();
+      var defer = Promise.pending();
+      var query = 'INSERT INTO tag (`user_id`, `card_id`, `tag_name`) VALUES ('+userId+', '+cardId+', \''+tagName+'\');';
+      connection.query(query, function(err, rows, fields) {
+        if (!err) {
+          defer.fulfill(rows);
+        } else {
+          defer.reject(err);
+          console.log('Error while performing Query.');
+        }
+      });
+    };
+
+    var deleteTag = function(userId, cardId, tagName){
+      var connection = db();
+      connection.connect();
+      var defer = Promise.pending();
+      var query = 'UPDATE tag SET is_deleted = 1 WHERE user_id = '+userId+' AND card_id = '+cardId+' AND tag_name = "'+tagName+'"';
+      connection.query(query, function(err, rows, fields) {
+        if (!err) {
+          defer.fulfill(rows);
+        } else {
+          defer.reject(err);
+          console.log('Error while performing Query.');
+        }
+      });
+    };
+
   return {
     sellCard: sellCard,
     getPortfolio: getPortfolio,
-    buyCard: buyCard
+    buyCard: buyCard,
+    createTag: createTag,
+    deleteTag: deleteTag
   }
 };
 

@@ -24,7 +24,19 @@
     })
   });
 
+  $(function(){
+    $('.tag-button').click(function(){
+      $card = $('#'+$(this).data("id"));
 
+      var userId = $card.data('userId');
+      var cardId = $card.data('cardId');
+      var tagName = $card.find('.box-tag input').val();
+
+      if(tagName !== '') {
+        portfolio.createTag({user_id: userId, card_id: cardId, tag: tagName}, success, error)
+      }
+    })
+  });
 </script>
 
 <% if (user.cards.length == 0) { %>
@@ -46,16 +58,34 @@
       <img src="<%-card.image_url%>" alt="<%-card.card_name%>" class="thumbnail">
       <strong class="card-name"><%-card.card_name%></strong>
       <i class="card-set"> <%-card.set_name%> </i>
+      <% if (card.tags !== undefined) { %>
+        <% for(var j=0; j<card.tags.length; j++) { %>
+          <span style="border: 1px solid blue; padding: 2px;
+          border-radius: 5px; background-color: aquamarine; cursor: pointer;"><%= card.tags[j] %></span>
+        <% } %>
+      <% } %>
       <p>You have <%-card.quantity%> card<% if (card.quantity > 1) { %>s<% } %><br />
       Current Price: <%= money(card.cost_mid) %></p>
 
-        <div class="pull-left box-quantity">
-          <input class="form-control" type="number" min="1" value="<%-card.quantity%>" max="<%-card.quantity%>">
+        <div>
+          <div class="pull-left box-quantity">
+            <input class="form-control" type="number" min="1" value="<%-card.quantity%>" max="<%-card.quantity%>">
+          </div>
+          <button type="submit" class="btn btn-primary sell-button" data-id="item-<%= card.cards_id %>-<%= user.user_id %>"  role="button">
+            Sell
+          </button>
         </div>
-        <button type="submit" class="btn btn-primary sell-button" data-id="item-<%= card.cards_id %>-<%= user.user_id %>"  role="button">
-          Sell
-        </button>
+
+          <div>
+        <div class="pull-left box-tag">
+          <input class="form-control" type="text" value="">
+          </div>
+          <button type="submit" class="btn btn-primary tag-button" data-id="item-<%= card.cards_id %>-<%= user.user_id %>"  role="button">
+            Tag
+          </button>
+        </div>
     </form>
+
   </li>
 
     <%  } %>
