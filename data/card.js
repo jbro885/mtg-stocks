@@ -26,7 +26,10 @@ var card = function(){
             " + card.max + " \
           )");
       })
-    return query + values.join(", ")
+
+    var onDuplicate = ' on duplicate key update cost_mid=' + card.mid;
+
+    return query + values.join(", ") + onDuplicate;
   };
 
   var getSets = function(){
