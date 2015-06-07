@@ -5,6 +5,10 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var d3 = require('d3');
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+
+var userService = require('./data/user');
 
 var userRoute = require('./routes/user');
 var cards = require('./routes/cards');
@@ -15,6 +19,8 @@ var app = express();
 
 // view engine setup
 app.locals.money = d3.format("$,.2f");
+
+app.use(logger('dev'));
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -36,6 +42,37 @@ app.use('/', routes);
 app.use('/', userRoute);
 app.use('/', cards);
 app.use('/', leaders);
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.serializeUser(function(user, done) {
+  done(null, user.user_id);
+});
+
+passport.deserializeUser(function(id, done) {
+  userService.getUser(2)
+    .then(function(user){done(null, user)})
+});
+
+passport.use(new LocalStrategy(
+  function(username, password, done) {
+    return userService.getUserByUsername(username)
+      .then(function(user){
+        if(user == undefined || user.user_password !== password){
+          done('Log in failed', null);
+        } else {
+          done(null, user);
+        }
+      });
+  }
+));
+
+app.post('/login',
+  passport.authenticate('local', { failureRedirect: '/'}),
+  function(req, res) {
+    res.redirect('/cards');
+  });
 
 /// catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -71,5 +108,14 @@ app.use(function(err, req, res, next) {
     });
 });
 
+app.get('/logout', function(req, res){
+  req.logout();
+  res.redirect('/');
+});
+
+function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) { return next(); }
+  res.redirect('/');
+}
 
 module.exports = app;

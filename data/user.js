@@ -96,6 +96,25 @@ var user = function(){
     return defer.promise;
   };
 
+  var byUsername = function(username){
+    var defer = Promise.pending();
+    var connection = db();
+    connection.connect();
+
+    var queryString = "select * from user where username = '" + username + "'";
+    connection.query(queryString, function(err, result) {
+      connection.end();
+      if (result.length == 0 && err) {
+        defer.reject(err);
+        console.log('Error while performing Query.');
+      } else {
+        defer.fulfill(result[0]);
+      }
+    });
+
+    return defer.promise;
+  };
+
   var incrementBalance = function(id, amount){
     var defer = Promise.pending();
     var connection = db();
@@ -139,6 +158,7 @@ var user = function(){
     getUser: getUser,
     getUsers: getUsers,
     getLeaders: getLeaders,
+    getUserByUsername: byUsername,
     incrementBalance: incrementBalance,
     decrementBalance: decrementBalance
   }
