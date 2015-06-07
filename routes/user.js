@@ -5,7 +5,7 @@ var promise = require('bluebird');
 
 var router = express.Router();
 
-router.get('/user', function(req, res) {
+router.get(['/user', '/'], function(req, res) {
 
   promise.join(userService.getUser(2), portfolioService.getPortfolio(2), function(user, cards){
     user.cards = cards;
