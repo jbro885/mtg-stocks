@@ -1,3 +1,5 @@
+var allSets = require('./AllSets.json');
+
 var lookup = {
   "Dragons of Tarkir" : "DTK",
   "Fate Reforged" : "FRF",
@@ -73,17 +75,21 @@ var lookup = {
   "Magic 2012 (M12)" : "M12",
   "Magic 2011 (M11)" : "M11",
   "Magic 2010 (M10)" : "M10",
-  "Tenth Edition"   : "10E",
-  "Ninth Edition"   : "9ED",
-  "Eighth Edition"  : "8ED",
+  "Tenth Edition" : "10E",
+  "Ninth Edition" : "9ED",
+  "Eighth Edition" : "8ED",
   "Seventh Edition" : "7ED",
-  "Sixth Edition"   : "6ED",
-  "Fifth Edition"   : "5ED",
-  "Fourth Edition"  : "4ED",
+  "Sixth Edition" : "6ED",
+  "Fifth Edition" : "5ED",
+  "Fourth Edition" : "4ED",
   "Revised Edition" : "3ED",
   "Unlimited Edition" : "2ED",
   "Beta Edition" : "LEB",
   "Alpha Edition" : "LEA",
   "From the Vault: Exiled" : "V09"
 };
+
+var findMultiverseId = function(cardName, setName, callback) {
+  console.log(allSets[lookup[setName]]).cards.filter(function(card){ return cardName === card.name});
+}(null, "Alpha Edition", "Zombie Master");
 
