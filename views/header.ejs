@@ -20,6 +20,7 @@
   <script src="/vendor/d3/d3.min.js"></script>
   <script src="/vendor/crossfilter.min.js"></script>
   <script src="/vendor/dc/dc.min.js"></script>
+  <script src="/vendor/jquery.webticker.js"></script>
   <script src="/js/mtgDynatable.js"></script>
   <script src="/js/portfolio.js"></script>
 
@@ -63,5 +64,125 @@
       <% } %>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
+    <ul id='webTicker'>
+      <li><span class='setsprite setsprite-10e' title='10th Edition'>&nbsp;</span>&nbsp;
+        <a href="/cards/12933">Adarkar Wastes</a><span class='arrowpos'>&#9650;</span>$3.49(<span class='arrowpos'>+3.3%</span>)</li>
+      <li><span class='setsprite setsprite-10e' title='10th Edition'>&nbsp;</span>&nbsp;
+        <a href="/cards/12944">Angelic Chorus</a><span class='arrowpos'>&#9650;</span>$4.27(<span class='arrowpos'>+4.7%</span>)</li>
+      <li><span class='setsprite setsprite-cmd' title='Commander'>&nbsp;</span>&nbsp;
+        <a href="/cards/18818">Attrition</a><span class='arrowpos'>&#9650;</span>$3.45(<span class='arrowpos'>+2.1%</span>)</li>
+      <li><span class='setsprite setsprite-pc2' title='Planechase 2012'>&nbsp;</span>&nbsp;
+        <a href="/cards/19300">Beast Within</a><span class='arrowpos'>&#9650;</span>$3.28(<span class='arrowpos'>+4.1%</span>)</li>
+      <li><span class='setsprite setsprite-9ed' title='9th Edition'>&nbsp;</span>&nbsp;
+        <a href="/cards/13329">Blood Moon</a><span class='arrowneg'>&#9660;</span>$55.49(<span class='arrowneg'>-13.3%</span>)</li>
+      <li><span class='setsprite setsprite-ch' title='Chronicles'>&nbsp;</span>&nbsp;
+        <a href="/cards/18692">Blood Moon</a><span class='arrowpos'>&#9650;</span>$47.49(<span class='arrowpos'>+5.5%</span>)</li>
+      <li><span class='setsprite setsprite-mma' title='Modern Masters'>&nbsp;</span>&nbsp;
+        <a href="/cards/20925">Blood Moon</a><span class='arrowpos'>&#9650;</span>$54.02(<span class='arrowpos'>+10.3%</span>)</li>
+      <li><span class='setsprite setsprite-chk' title='Champions of Kamigawa'>&nbsp;</span>&nbsp;
+        <a href="/cards/5223">Boseiju, Who Shelters All</a><span class='arrowpos'>&#9650;</span>$11.94(<span class='arrowpos'>+3.4%</span>)</li>
+      <li><span class='setsprite setsprite-avr' title='Avacyn Restored'>&nbsp;</span>&nbsp;
+        <a href="/cards/446">Cavern of Souls</a><span class='arrowpos'>&#9650;</span>$29.80(<span class='arrowpos'>+3.5%</span>)</li>
+      <li><span class='setsprite setsprite-sok' title='Saviors of Kamigawa'>&nbsp;</span>&nbsp;
+        <a href="/cards/4893">Choice of Damnations</a><span class='arrowpos'>&#9650;</span>$3.05(<span class='arrowpos'>+2.0%</span>)</li>
+      <li><span class='setsprite setsprite-7e' title='7th Edition'>&nbsp;</span>&nbsp;
+        <a href="/cards/14031">Coat of Arms</a><span class='arrowpos'>&#9650;</span>$8.18(<span class='arrowpos'>+2.3%</span>)</li>
+      <li><span class='setsprite setsprite-rav' title='Ravnica'>&nbsp;</span>&nbsp;
+        <a href="/cards/4630">Congregation at Dawn</a><span class='arrowpos'>&#9650;</span>$3.66(<span class='arrowpos'>+2.2%</span>)</li>
+      <li><span class='setsprite setsprite-wwk' title='Worldwake'>&nbsp;</span>&nbsp;
+        <a href="/cards/1558">Creeping Tar Pit</a><span class='arrowpos'>&#9650;</span>$14.91(<span class='arrowpos'>+9.2%</span>)</li>
+      <li><span class='setsprite setsprite-10e' title='10th Edition'>&nbsp;</span>&nbsp;
+        <a href="/cards/12997">Crucible of Worlds</a><span class='arrowpos'>&#9650;</span>$36.47(<span class='arrowpos'>+4.4%</span>)</li>
+      <li><span class='setsprite setsprite-shm' title='Shadowmoor'>&nbsp;</span>&nbsp;
+        <a href="/cards/2654">Cursecatcher</a><span class='arrowpos'>&#9650;</span>$7.41(<span class='arrowpos'>+2.2%</span>)</li>
+      <li><span class='setsprite setsprite-10e' title='10th Edition'>&nbsp;</span>&nbsp;
+        <a href="/cards/13011">Doubling Cube</a><span class='arrowpos'>&#9650;</span>$7.69(<span class='arrowpos'>+2.7%</span>)</li>
+      <li><span class='setsprite setsprite-an' title='Arabian Nights'>&nbsp;</span>&nbsp;
+        <a href="/cards/11918">Erhnam Djinn</a><span class='arrowpos'>&#9650;</span>$24.49(<span class='arrowpos'>+32.1%</span>)</li>
+      <li><span class='setsprite setsprite-5dn' title='Fifth Dawn'>&nbsp;</span>&nbsp;
+        <a href="/cards/5552">Eternal Witness</a><span class='arrowpos'>&#9650;</span>$3.08(<span class='arrowpos'>+4.1%</span>)</li>
+      <li><span class='setsprite setsprite-ddj' title='Duel Decks: Izzet vs. Golgari'>&nbsp;</span>&nbsp;
+        <a href="/cards/17070">Eternal Witness</a><span class='arrowpos'>&#9650;</span>$3.93(<span class='arrowpos'>+3.7%</span>)</li>
+      <li><span class='setsprite setsprite-mma' title='Modern Masters'>&nbsp;</span>&nbsp;
+        <a href="/cards/20949">Eternal Witness</a><span class='arrowpos'>&#9650;</span>$3.65(<span class='arrowpos'>+8.3%</span>)</li>
+      <li><span class='setsprite setsprite-isd' title='Innistrad'>&nbsp;</span>&nbsp;
+        <a href="/cards/11">Gavony Township</a><span class='arrowpos'>&#9650;</span>$3.10(<span class='arrowpos'>+2.7%</span>)</li>
+      <li><span class='setsprite setsprite-tsp' title='Time Spiral'>&nbsp;</span>&nbsp;
+        <a href="/cards/3893">Gemstone Caverns</a><span class='arrowpos'>&#9650;</span>$3.75(<span class='arrowpos'>+2.2%</span>)</li>
+      <li><span class='setsprite setsprite-chk' title='Champions of Kamigawa'>&nbsp;</span>&nbsp;
+        <a href="/cards/5268">General&#39;s Kabuto</a><span class='arrowpos'>&#9650;</span>$2.33(<span class='arrowpos'>+4.0%</span>)</li>
+      <li><span class='setsprite setsprite-mma' title='Modern Masters'>&nbsp;</span>&nbsp;
+        <a href="/cards/21047">Glimmervoid</a><span class='arrowpos'>&#9650;</span>$11.70(<span class='arrowpos'>+2.3%</span>)</li>
+      <li><span class='setsprite setsprite-zen' title='Zendikar'>&nbsp;</span>&nbsp;
+        <a href="/cards/1731">Goblin Guide</a><span class='arrowpos'>&#9650;</span>$27.49(<span class='arrowpos'>+3.1%</span>)</li>
+      <li><span class='setsprite setsprite-bok' title='Betrayers of Kamigawa'>&nbsp;</span>&nbsp;
+        <a href="/cards/5084">Goryo&#39;s Vengeance</a><span class='arrowpos'>&#9650;</span>$14.45(<span class='arrowpos'>+8.7%</span>)</li>
+      <li><span class='setsprite setsprite-tor' title='Torment'>&nbsp;</span>&nbsp;
+        <a href="/cards/6939">Grim Lavamancer</a><span class='arrowpos'>&#9650;</span>$7.83(<span class='arrowpos'>+3.2%</span>)</li>
+      <li><span class='setsprite setsprite-p3' title='Starter 1999'>&nbsp;</span>&nbsp;
+        <a href="/cards/17575">Grim Tutor</a><span class='arrowpos'>&#9650;</span>$269.99(<span class='arrowpos'>+2.2%</span>)</li>
+      <li><span class='setsprite setsprite-pc2' title='Planechase 2012'>&nbsp;</span>&nbsp;
+        <a href="/cards/19347">Hyena Umbra</a><span class='arrowpos'>&#9650;</span>$3.19(<span class='arrowpos'>+18.6%</span>)</li>
+      <li><span class='setsprite setsprite-md1' title='Modern Event Deck'>&nbsp;</span>&nbsp;
+        <a href="/cards/24854">Inquisition of Kozilek</a><span class='arrowpos'>&#9650;</span>$10.95(<span class='arrowpos'>+9.6%</span>)</li>
+      <li><span class='setsprite setsprite-chk' title='Champions of Kamigawa'>&nbsp;</span>&nbsp;
+        <a href="/cards/5315">Jugan, the Rising Star</a><span class='arrowpos'>&#9650;</span>$2.24(<span class='arrowpos'>+2.3%</span>)</li>
+      <li><span class='setsprite setsprite-mma' title='Modern Masters'>&nbsp;</span>&nbsp;
+        <a href="/cards/20893">Kitchen Finks</a><span class='arrowpos'>&#9650;</span>$5.20(<span class='arrowpos'>+4.0%</span>)</li>
+      <li><span class='setsprite setsprite-rav' title='Ravnica'>&nbsp;</span>&nbsp;
+        <a href="/cards/4732">Life from the Loam</a><span class='arrowpos'>&#9650;</span>$4.90(<span class='arrowpos'>+2.3%</span>)</li>
+      <li><span class='setsprite setsprite-cmd' title='Commander'>&nbsp;</span>&nbsp;
+        <a href="/cards/18955">Mana-Charged Dragon</a><span class='arrowpos'>&#9650;</span>$7.26(<span class='arrowpos'>+3.9%</span>)</li>
+      <li><span class='setsprite setsprite-nph' title='New Phyrexia'>&nbsp;</span>&nbsp;
+        <a href="/cards/262">Melira, Sylvok Outcast</a><span class='arrowpos'>&#9650;</span>$2.24(<span class='arrowpos'>+3.7%</span>)</li>
+      <li><span class='setsprite setsprite-lrw' title='Lorwyn'>&nbsp;</span>&nbsp;
+        <a href="/cards/3213">Militia&#39;s Pride</a><span class='arrowpos'>&#9650;</span>$2.07(<span class='arrowpos'>+3.5%</span>)</li>
+      <li><span class='setsprite setsprite-le' title='Legends'>&nbsp;</span>&nbsp;
+        <a href="/cards/11654">Mold Demon</a><span class='arrowpos'>&#9650;</span>$3.08(<span class='arrowpos'>+3.0%</span>)</li>
+      <li><span class='setsprite setsprite-cmd' title='Commander'>&nbsp;</span>&nbsp;
+        <a href="/cards/18976">Oblivion Stone</a><span class='arrowpos'>&#9650;</span>$19.08(<span class='arrowpos'>+11.6%</span>)</li>
+      <li><span class='setsprite setsprite-isd' title='Innistrad'>&nbsp;</span>&nbsp;
+        <a href="/cards/88">Olivia Voldaren</a><span class='arrowpos'>&#9650;</span>$6.58(<span class='arrowpos'>+9.5%</span>)</li>
+      <li><span class='setsprite setsprite-m13' title='Magic 2013 (M13)'>&nbsp;</span>&nbsp;
+        <a href="/cards/12111">Omniscience</a><span class='arrowpos'>&#9650;</span>$34.87(<span class='arrowpos'>+3.4%</span>)</li>
+      <li><span class='setsprite setsprite-ddi' title='Duel Decks: Venser vs. Koth'>&nbsp;</span>&nbsp;
+        <a href="/cards/17376">Path to Exile</a><span class='arrowpos'>&#9650;</span>$7.59(<span class='arrowpos'>+2.3%</span>)</li>
+      <li><span class='setsprite setsprite-md1' title='Modern Event Deck'>&nbsp;</span>&nbsp;
+        <a href="/cards/24861">Path to Exile</a><span class='arrowpos'>&#9650;</span>$7.99(<span class='arrowpos'>+2.0%</span>)</li>
+      <li><span class='setsprite setsprite-gu' title="Urza's Legacy">&nbsp;</span>&nbsp;
+        <a href="/cards/8837">Quicksilver Amulet</a><span class='arrowpos'>&#9650;</span>$6.95(<span class='arrowpos'>+3.6%</span>)</li>
+      <li><span class='setsprite setsprite-le' title='Legends'>&nbsp;</span>&nbsp;
+        <a href="/cards/11685">Ragnar</a><span class='arrowpos'>&#9650;</span>$22.99(<span class='arrowpos'>+9.5%</span>)</li>
+      <li><span class='setsprite setsprite-eve' title='Eventide'>&nbsp;</span>&nbsp;
+        <a href="/cards/2563">Sapling of Colfenor</a><span class='arrowneg'>&#9660;</span>$5.53(<span class='arrowneg'>-7.5%</span>)</li>
+      <li><span class='setsprite setsprite-dst' title='Darksteel'>&nbsp;</span>&nbsp;
+        <a href="/cards/5776">Savage Beating</a><span class='arrowpos'>&#9650;</span>$5.39(<span class='arrowpos'>+5.7%</span>)</li>
+      <li><span class='setsprite setsprite-zen' title='Zendikar'>&nbsp;</span>&nbsp;
+        <a href="/cards/1844">Scalding Tarn</a><span class='arrowpos'>&#9650;</span>$53.99(<span class='arrowpos'>+2.3%</span>)</li>
+      <li><span class='setsprite setsprite-te' title='Tempest'>&nbsp;</span>&nbsp;
+        <a href="/cards/9762">Scroll Rack</a><span class='arrowpos'>&#9650;</span>$24.12(<span class='arrowpos'>+2.5%</span>)</li>
+      <li><span class='setsprite setsprite-dst' title='Darksteel'>&nbsp;</span>&nbsp;
+        <a href="/cards/5781">Serum Powder</a><span class='arrowpos'>&#9650;</span>$2.18(<span class='arrowpos'>+2.4%</span>)</li>
+      <li><span class='setsprite setsprite-lrw' title='Lorwyn'>&nbsp;</span>&nbsp;
+        <a href="/cards/3273">Sower of Temptation</a><span class='arrowpos'>&#9650;</span>$25.41(<span class='arrowpos'>+2.8%</span>)</li>
+      <li><span class='setsprite setsprite-chk' title='Champions of Kamigawa'>&nbsp;</span>&nbsp;
+        <a href="/cards/5454">Squelch</a><span class='arrowpos'>&#9650;</span>$2.14(<span class='arrowpos'>+2.4%</span>)</li>
+      <li><span class='setsprite setsprite-dst' title='Darksteel'>&nbsp;</span>&nbsp;
+        <a href="/cards/5796">Sundering Titan</a><span class='arrowpos'>&#9650;</span>$5.50(<span class='arrowpos'>+3.4%</span>)</li>
+      <li><span class='setsprite setsprite-le' title='Legends'>&nbsp;</span>&nbsp;
+        <a href="/cards/11731">Sylvan Library</a><span class='arrowpos'>&#9650;</span>$42.10(<span class='arrowpos'>+2.7%</span>)</li>
+      <li><span class='setsprite setsprite-9ed' title='9th Edition'>&nbsp;</span>&nbsp;
+        <a href="/cards/13608">Urza&#39;s Mine</a><span class='arrowneg'>&#9660;</span>$12.25(<span class='arrowneg'>-28.6%</span>)</li>
+      <li><span class='setsprite setsprite-aq' title='Antiquities'>&nbsp;</span>&nbsp;
+        <a href="/cards/21724">Urza&#39;s Mine (Pulley)</a><span class='arrowpos'>&#9650;</span>$2.88(<span class='arrowpos'>+9.9%</span>)</li>
+      <li><span class='setsprite setsprite-9ed' title='9th Edition'>&nbsp;</span>&nbsp;
+        <a href="/cards/13609">Urza&#39;s Power Plant</a><span class='arrowneg'>&#9660;</span>$4.34(<span class='arrowneg'>-6.9%</span>)</li>
+      <li><span class='setsprite setsprite-aq' title='Antiquities'>&nbsp;</span>&nbsp;
+        <a href="/cards/21730">Urza&#39;s Tower (Forest)</a><span class='arrowpos'>&#9650;</span>$2.81(<span class='arrowpos'>+4.5%</span>)</li>
+      <li><span class='setsprite setsprite-aq' title='Antiquities'>&nbsp;</span>&nbsp;
+        <a href="/cards/21731">Urza&#39;s Tower (Mountains)</a><span class='arrowpos'>&#9650;</span>$2.60(<span class='arrowpos'>+16.1%</span>)</li>
+    </ul>
 </nav>
-
+  <script type="application/javascript">
+    $("#webTicker").webTicker();
+  </script>
