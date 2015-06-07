@@ -6,9 +6,12 @@ var promise = require('bluebird');
 
 router.get('/cards', function(req, res) {
 
-  cardService.getAllCards(function(cards){
-    res.render('cards', { user: req.user, cards: cards, title: 'Shop' });
-  })
+  cardService.getAllCards()
+    .then(function(cards){
+      res.render('cards', { user: req.user, cards: cards, title: 'Shop' });
+    }, function(err, blah){
+      console.log(err + blah)
+    })
 
 });
 

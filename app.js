@@ -1,4 +1,5 @@
 var express = require('express');
+var session = require('express-session')
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
@@ -29,50 +30,31 @@ var env = process.env.NODE_ENV || 'development';
 app.locals.ENV = env;
 app.locals.ENV_DEVELOPMENT = env == 'development';
 
-// app.use(favicon(__dirname + '/public/img/favicon.ico'));
+//app.use(favicon(__dirname + '/public/img/favicon.ico'));
 app.use(logger('dev'));
+
+app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
 }));
-app.use(cookieParser());
+
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', index);
-app.use('/', userRoute);
-app.use('/', ensureAuthenticated, cards);
-app.use('/', ensureAuthenticated, leaders);
-
+app.use(session({secret: 'keyboard cat'}));
 app.use(passport.initialize());
 app.use(passport.session());
-
-passport.serializeUser(function(user, done) {
-  done(null, user.user_id);
-});
-
-passport.deserializeUser(function(id, done) {
-  userService.getUser(2)
-    .then(function(user){done(null, user)})
-});
-
-passport.use(new LocalStrategy(
-  function(username, password, done) {
-    return userService.getUserByUsername(username)
-      .then(function(user){
-        if(user == undefined || user.user_password !== password){
-          done('Log in failed', null);
-        } else {
-          done(null, user);
-        }
-      });
-  }
-));
 
 app.post('/login',
   passport.authenticate('local', { failureRedirect: '/'}),
   function(req, res) {
     res.redirect('/cards');
   });
+
+app.use('/', index);
+app.use('/', ensureAuthenticated, userRoute);
+app.use('/', ensureAuthenticated, cards);
+app.use('/', ensureAuthenticated, leaders);
 
 /// catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -112,6 +94,28 @@ app.get('/logout', function(req, res){
   req.logout();
   res.redirect('/');
 });
+
+passport.serializeUser(function(user, done) {
+  done(null, user.user_id);
+});
+
+passport.deserializeUser(function(id, done) {
+  userService.getUser(2)
+    .then(function(user){done(null, user)})
+});
+
+passport.use(new LocalStrategy(
+  function(username, password, done) {
+    return userService.getUserByUsername(username)
+      .then(function(user){
+        if(user == undefined || user.user_password !== password){
+          done('Log in failed', null);
+        } else {
+          done(null, user);
+        }
+      });
+  }
+));
 
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) { return next(); }

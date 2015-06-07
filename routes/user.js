@@ -5,11 +5,11 @@ var promise = require('bluebird');
 
 var router = express.Router();
 
-router.get(['/user', '/'], function(req, res) {
+router.get('/user', function(req, res) {
 
   portfolioService.getPortfolio(req.user.user_id)
     .then(function(cards){
-      user.cards = cards;
+      req.user.cards = cards;
       res.render('user', { user: req.user, title: 'Users' });
     });
 
