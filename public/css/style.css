@@ -3,14 +3,14 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   background-color: transparent ;
 }
-.full {
+.home {
   background: url('/images/coverpage.jpg') no-repeat top center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   background-size: cover;
   -o-background-size: cover;
 }
-.full h1, p{
+.home h1, p{
   color: white;
 }
 .no-border {
@@ -19,7 +19,8 @@ body {
 .signup-cta{
   background-color: black;
   margin-top: 300px;
-  width: 300px;
+  width: 500px;
+  padding: 50px;
   margin-left: auto;
   margin-right: auto;
 }
