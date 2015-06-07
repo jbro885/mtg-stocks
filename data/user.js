@@ -71,6 +71,33 @@ var user = function(){
     return defer.promise;
   };
 
+  var runQuery = function(query, id){
+    var defer = Promise.pending();
+    var connection = db();
+    connection.connect();
+
+    connection.query(query, id, function (err, rows, fields) {
+      if (err) {
+        defer.reject(err);
+        console.log('Error while performing Query.');
+      } else {
+        defer.fulfill(rows);
+      }
+    });
+    connection.end();
+    return defer.promise;
+  };
+
+  var getTransactionHistory = function(id){
+    var queryString = "SELECT th.*, s.set_name, c.card_name \
+    from transaction_history th \
+    join card c on th.cards_id = c.cards_id \
+    join `set` s on c.set_id = s.set_id \
+    where user_id = ?";
+
+    return runQuery(queryString, id);
+  };
+
   var getLeaders = function () {
     var defer = Promise.pending();
     var connection = db();
@@ -160,7 +187,8 @@ var user = function(){
     getLeaders: getLeaders,
     getUserByUsername: byUsername,
     incrementBalance: incrementBalance,
-    decrementBalance: decrementBalance
+    decrementBalance: decrementBalance,
+    getTransactionHistory: getTransactionHistory
   }
 };
 

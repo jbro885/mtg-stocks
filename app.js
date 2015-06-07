@@ -6,6 +6,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var d3 = require('d3');
+var moment = require('moment');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 
@@ -15,11 +16,15 @@ var index = require('./routes/index');
 var userRoute = require('./routes/user');
 var cards = require('./routes/cards');
 var leaders = require('./routes/leaders');
+var history = require('./routes/history');
 
 var app = express();
 
 // view engine setup
 app.locals.money = d3.format("$,.2f");
+app.locals.formatTime = function(date){
+  return moment(date).format('MM/DD/YYYY h:mm a');
+};
 
 app.use(logger('dev'));
 
@@ -55,6 +60,7 @@ app.use('/', index);
 app.use('/', ensureAuthenticated, userRoute);
 app.use('/', ensureAuthenticated, cards);
 app.use('/', ensureAuthenticated, leaders);
+app.use('/', ensureAuthenticated, history);
 
 /// catch 404 and forward to error handler
 app.use(function(req, res, next) {
