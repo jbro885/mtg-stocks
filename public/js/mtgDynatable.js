@@ -1,5 +1,5 @@
-var MtgDynatable = function (tableSelector, searchSelector, writerFunction) {
-  var dynatable, writer;
+var MtgDynatable = function (tableSelector, templateSelector, searchSelector, records) {
+  var dynatable, writerFunction;
 
   var setTemplate = function(templateSelector){
     _.templateSettings = {
@@ -17,34 +17,58 @@ var MtgDynatable = function (tableSelector, searchSelector, writerFunction) {
     dynatable.process();
   };
 
-  var initialize = function(tableSelector, templateSelector, records){
-    setTemplate(templateSelector);
+  var search = function(key, value){
+    if (value === "") {
+      dynatable.queries.remove(key);
+    } else {
+      dynatable.queries.add(key, value);
+    }
+    dynatable.process();
+  }
 
-    dynatable = $(tableSelector).dynatable({
+  var initialize = function(tableSelector, templateSelector, searchSelector, records){
+    setTemplate(templateSelector);
+    $(searchSelector).attr("data-dynatable-query", "search");
+
+    dynatable = $(tableSelector)
+      .bind('dynatable:init', function(e, dynatable) {
+        dynatable.queries.functions['set_name'] = function(record, queryValue) {
+          if ( record.set_name == queryValue )
+            return true;
+          else
+            return false;
+        };
+      })
+      .dynatable({
       table: {
         bodyRowSelector: 'li'
       },
       dataset: {
         records: records,
-        perPageDefault: 100,
-        perPageOptions: [100, 500, 1000]
+        perPageDefault: 100
       },
       features: {
         pushState: false,
-        sort: true
+        sort: true,
+        perPageSelect: false,
+        search: false
       },
       writers: {
         _rowWriter: writerFunction
+      },
+      inputs: {
+        queries: $(searchSelector)
       }
     }).data('dynatable');
     dynatable.dom.update();
   };
 
-  if(tableSelector && searchSelector && writerFunction){
-    initialize(tableSelector, searchSelector, writerFunction);
+  if(tableSelector && templateSelector  && searchSelector && records){
+    initialize(tableSelector, templateSelector, searchSelector, records);
   }
 
   return {
-    sort: sort
+    sort: sort,
+    search: search
   }
 };

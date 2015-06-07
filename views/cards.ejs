@@ -5,15 +5,29 @@
   <div id="message" >asdf </div>
 </div>
 
-<div class="btn-group">
-  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-    Sort <span class="caret"></span>
-  </button>
-  <ul class="dropdown-menu" role="menu">
-    <li><a href="#" data-sort="card_name">Card Name</a></li>
-    <li><a href="#" data-sort="set_name">Set Name</a></li>
-    <li><a href="#" data-sort="cost_mid">Card Cost</a></li>
-  </ul>
+<div class="form-inline">
+  <div class="btn-group">
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+      Sort <span class="caret"></span>
+    </button>
+    <ul class="sort-select dropdown-menu" role="menu">
+      <li><a href="#" data-sort="card_name">Card Name</a></li>
+      <li><a href="#" data-sort="set_name">Set Name</a></li>
+      <li><a href="#" data-sort="cost_mid">Card Cost</a></li>
+    </ul>
+  </div>
+
+  <div class="btn-group">
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+      <span id="set-select-btn">Set</span> <span class="caret"></span>
+    </button>
+    <ul class="set-select dropdown-menu">
+      <li><a href="#" data-set="">Clear Filter</a></li>
+    </ul>
+  </div>
+
+  <input type="search" id="search-cards" class="form-control pull-right" placeholder="Search">
+  </input>
 </div>
 
 <ul id="cards" class="row cards-list">
@@ -45,14 +59,35 @@
     };
 
     var cards = <%-JSON.stringify(cards)%>;
-    var mtgDynatable = MtgDynatable("#cards", "#row-template", cards);
+    var mtgDynatable = MtgDynatable("#cards", "#row-template", "#search-cards", cards);
     mtgDynatable.sort("card_name");
 
-    $('.dropdown-menu li > a').click( function (e) {
+    var sets = [];
+    for(var card in cards){
+      if(!$.inArray(card.set_name, sets)){
+        sets.push(card.set_name);
+      }
+    }
+    var flags = [];
+    for( var i=0; i < cards.length; i++) {
+      var set_name = cards[i].set_name;
+      if( flags[set_name]) continue;
+      flags[set_name] = true;
+      $('.set-select').append('<li><a href="#" data-set="' + set_name + '">' + set_name + '</a></li>');
+    }
+
+    $('.sort-select li > a').click( function (e) {
       mtgDynatable.sort($(this).data("sort"));
       $('.status').text(this.innerHTML);
-    })
+    });
 
+    $('.set-select li > a').click( function (e) {
+      var set_name = $(this).data("set");
+      if(set_name == "")
+        $("#set-select-btn").text("Set");
+      else $("#set-select-btn").text(set_name);
+      mtgDynatable.search("set_name", set_name);
+    });
 
     $('.buy-button').click(function(){
       var quantity = $(this).parent().find(".quantity").val();
