@@ -1,13 +1,14 @@
 <!doctype html>
-<html lang="en">
+<% if ( typeof headerClass == "undefined" ) {headerClass="qwer";}%>
+<html lang="en" class="<%-headerClass%>">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width">
   <title><%-title %></title>
-  <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="/vendor/dynatable/jquery.dynatable.css">
   <link rel="stylesheet" href="/vendor/dc/dc.css">
+  <link rel="stylesheet" href="/css/style.css">
 
   <% if (ENV_DEVELOPMENT) { %>
     <script src="http://localhost:35729/livereload.js"></script>
@@ -53,7 +54,7 @@
         <li><% include netWorthGraph %></li>
       </ul>
       <% } else { %>
-        <form class="navbar-form navbar-left" role="search" action="/login" method="post">
+        <form class="navbar-form navbar-right" role="search" action="/login" method="post">
           <div class="form-group">
             <input type="text" class="form-control" placeholder="User" name="username">
             <input type="text" class="form-control" placeholder="Password" name="password">

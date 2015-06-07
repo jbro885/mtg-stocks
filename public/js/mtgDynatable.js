@@ -11,6 +11,12 @@ var MtgDynatable = function (tableSelector, searchSelector, writerFunction) {
     };
   };
 
+  var sort = function(sortType){
+    dynatable.sorts.clear();
+    dynatable.sorts.add(sortType, 1);
+    dynatable.process();
+  };
+
   var initialize = function(tableSelector, templateSelector, records){
     setTemplate(templateSelector);
 
@@ -25,7 +31,7 @@ var MtgDynatable = function (tableSelector, searchSelector, writerFunction) {
       },
       features: {
         pushState: false,
-        sort: false
+        sort: true
       },
       writers: {
         _rowWriter: writerFunction
@@ -39,5 +45,6 @@ var MtgDynatable = function (tableSelector, searchSelector, writerFunction) {
   }
 
   return {
+    sort: sort
   }
 };

@@ -5,6 +5,17 @@
   <div id="message" >asdf </div>
 </div>
 
+<div class="btn-group">
+  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+    Sort <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" role="menu">
+    <li><a href="#" data-sort="card_name">Card Name</a></li>
+    <li><a href="#" data-sort="set_name">Set Name</a></li>
+    <li><a href="#" data-sort="cost_mid">Card Cost</a></li>
+  </ul>
+</div>
+
 <ul id="cards" class="row cards-list">
   <script type="ejs-template" id="row-template">
     <li class="user-cards col-lg-2 col-md-3 col-sm-4 col-xs-6">
@@ -35,6 +46,13 @@
 
     var cards = <%-JSON.stringify(cards)%>;
     var mtgDynatable = MtgDynatable("#cards", "#row-template", cards);
+    mtgDynatable.sort("card_name");
+
+    $('.dropdown-menu li > a').click( function (e) {
+      mtgDynatable.sort($(this).data("sort"));
+      $('.status').text(this.innerHTML);
+    })
+
 
     $('.buy-button').click(function(){
       var quantity = $(this).parent().find(".quantity").val();
