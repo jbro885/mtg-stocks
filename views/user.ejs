@@ -67,23 +67,25 @@
       <p>You have <%-card.quantity%> card<% if (card.quantity > 1) { %>s<% } %><br />
       Current Price: <%= money(card.cost_mid) %></p>
 
-        <div>
-          <div class="pull-left box-quantity">
-            <input class="form-control" type="number" min="1" value="<%-card.quantity%>" max="<%-card.quantity%>">
-          </div>
-          <button type="submit" class="btn btn-primary sell-button" data-id="item-<%= card.cards_id %>-<%= user.user_id %>"  role="button">
-            Sell
-          </button>
+      <div>
+        <div class="pull-left box-quantity">
+          <input class="form-control" type="number" min="1" value="<%-card.quantity%>" max="<%-card.quantity%>">
         </div>
+        <button type="submit" class="btn btn-primary sell-button" data-id="item-<%= card.cards_id %>-<%= user.user_id %>"  role="button">
+          Sell
+        </button>
+      </div>
+    </form>
 
-          <div>
+    <form>
+      <div>
         <div class="pull-left box-tag">
           <input class="form-control" type="text" value="">
-          </div>
-          <button type="submit" class="btn btn-primary tag-button" data-id="item-<%= card.cards_id %>-<%= user.user_id %>"  role="button">
-            Tag
-          </button>
         </div>
+        <button type="submit" class="btn btn-primary tag-button" data-id="item-<%= card.cards_id %>-<%= user.user_id %>"  role="button">
+          Tag
+        </button>
+      </div>
     </form>
 
   </li>
