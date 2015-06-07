@@ -5,7 +5,7 @@ var promise = require('bluebird');
 
 router.get('/leaders', function(req, res) {
   userService.getLeaders().then(function(leaders){
-    res.render('leaders', { user: req.user, leaderList: leaders, title: 'MTG' });
+    res.render('leaders', { tickerCards: req.tickerCards, user: req.user, leaderList: leaders, title: 'MTG' });
   });
 });
 

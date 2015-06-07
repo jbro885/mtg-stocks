@@ -55,17 +55,20 @@
   <li class="user-cards col-lg-2 col-md-3 col-sm-4 col-xs-6" id="item-<%= card.cards_id %>-<%= user.user_id %>" data-card-id="<%= card.cards_id %>" data-user-id="<%= user.user_id %>">
 
     <form id="myform">
-      <img src="<%-card.image_url%>" alt="<%-card.card_name%>" class="thumbnail">
+      <div class="card-div" style="position:relative; height: 285px">
+        <img src="<%-card.image_url%>" alt="<%-card.card_name%>" class="thumbnail" style="position:absolute;">
+        <% if (card.tags !== undefined) { %>
+        <% for(var j=0; j<card.tags.length; j++) { %>
+        <span style="padding: 2px; position:relative; z-index: 10; top: 30px;
+            border-radius: 5px; background-color: aquamarine; cursor: pointer;"><%= card.tags[j] %></span>
+        <% } %>
+        <% } %>
+      </div>
+
       <strong class="card-name"><%-card.card_name%></strong>
       <i class="card-set"> <%-card.set_name%> </i>
-      <% if (card.tags !== undefined) { %>
-        <% for(var j=0; j<card.tags.length; j++) { %>
-          <span style="border: 1px solid blue; padding: 2px;
-          border-radius: 5px; background-color: aquamarine; cursor: pointer;"><%= card.tags[j] %></span>
-        <% } %>
-      <% } %>
       <p>You have <%-card.quantity%> card<% if (card.quantity > 1) { %>s<% } %><br />
-      Current Price: <%= money(card.cost_mid) %></p>
+        Current Price: <%= money(card.cost_mid) %></p>
 
       <div>
         <div class="pull-left box-quantity">

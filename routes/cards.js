@@ -8,7 +8,7 @@ router.get('/cards', function(req, res) {
 
   cardService.getAllCards()
     .then(function(cards){
-      res.render('cards', { user: req.user, cards: cards, title: 'Shop' });
+      res.render('cards', { tickerCards: req.tickerCards, user: req.user, cards: cards, title: 'Shop' });
     }, function(err, blah){
       console.log(err + blah)
     })

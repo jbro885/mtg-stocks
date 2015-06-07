@@ -56,11 +56,20 @@ app.post('/login',
     res.redirect('/cards');
   });
 
-app.use('/', index);
-app.use('/', ensureAuthenticated, userRoute);
-app.use('/', ensureAuthenticated, cards);
-app.use('/', ensureAuthenticated, leaders);
-app.use('/', ensureAuthenticated, history);
+var cardService= require('./data/card');
+var tickerCards = function(req, res, next){
+  cardService.getAllCards()
+    .then(function(tickerCards) {
+      req.tickerCards = tickerCards;
+      next();
+    });
+};
+
+app.use('/', tickerCards, index);
+app.use('/', ensureAuthenticated, tickerCards, userRoute);
+app.use('/', ensureAuthenticated, tickerCards, cards);
+app.use('/', ensureAuthenticated, tickerCards, leaders);
+app.use('/', ensureAuthenticated, tickerCards, history);
 
 /// catch 404 and forward to error handler
 app.use(function(req, res, next) {

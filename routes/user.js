@@ -10,7 +10,7 @@ router.get('/user', function(req, res) {
   portfolioService.getPortfolio(req.user.user_id)
     .then(function(cards){
       req.user.cards = cards;
-      res.render('user', { user: req.user, title: 'Users' });
+      res.render('user', { tickerCards: req.tickerCards, user: req.user, title: 'Users' });
     });
 
 });
