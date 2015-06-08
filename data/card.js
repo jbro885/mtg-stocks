@@ -148,7 +148,7 @@ var card = function(){
     var defer = Promise.pending();
     var connection = db();
     connection.connect();
-    var queryString = "select c.*, s.set_name from card c join `set` s on c.set_id = s.set_id";
+    var queryString = "select distinct c.*, s.set_name from card c join `set` s on c.set_id = s.set_id";
     connection.query(queryString, function(err, rows, fields) {
       if (!err) {
         defer.fulfill(rows);
