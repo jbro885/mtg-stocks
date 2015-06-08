@@ -30,7 +30,7 @@ var user = function(){
     FROM user u \
     LEFT OUTER JOIN portfolio p on u.user_id = p.user_id \
     LEFT OUTER JOIN card c on p.cards_id = c.cards_id \
-    WHERE p.user_id  = ? \
+    WHERE u.user_id  = ? \
     GROUP BY u.user_id, u.username, u.balance";
 
     connection.query(queryString, [id], function(err, rows, fields) {

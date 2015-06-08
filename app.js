@@ -71,6 +71,12 @@ app.use('/', ensureAuthenticated, tickerCards, cards);
 app.use('/', ensureAuthenticated, tickerCards, leaders);
 app.use('/', ensureAuthenticated, tickerCards, history);
 
+app.get('/logout', function(req, res){
+  req.logout();
+  res.redirect('/');
+});
+
+
 /// catch 404 and forward to error handler
 app.use(function(req, res, next) {
     var err = new Error('Not Found');
@@ -103,11 +109,6 @@ app.use(function(err, req, res, next) {
         error: {},
         title: 'error'
     });
-});
-
-app.get('/logout', function(req, res){
-  req.logout();
-  res.redirect('/');
 });
 
 passport.serializeUser(function(u, done) {
