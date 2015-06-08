@@ -55,11 +55,11 @@
   <li class="user-cards col-lg-2 col-md-3 col-sm-4 col-xs-6" id="item-<%= card.cards_id %>-<%= user.user_id %>" data-card-id="<%= card.cards_id %>" data-user-id="<%= user.user_id %>">
 
     <form id="myform">
-      <div class="card-div" style="position:relative; height: 285px">
+      <div class="card-div" style="position:relative; height: 285px; width: 200px;">
         <img src="<%-card.image_url%>" alt="<%-card.card_name%>" class="thumbnail" style="position:absolute;">
         <% if (card.tags !== undefined) { %>
         <% for(var j=0; j<card.tags.length; j++) { %>
-        <span class="label label-default" style="position:relative; z-index: 10; top: 30px; cursor: pointer;"><%= card.tags[j] %></span>
+        <span class="label label-default" style="opacity: .67; position: relative; z-index: 10; top: 30px; cursor: pointer; margin-left: 10px; opacity: .6;"><%= card.tags[j] %></span>
         <% } %>
         <% } %>
       </div>
