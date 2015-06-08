@@ -7,7 +7,7 @@ router.get('/history', function(req, res) {
 
   userService.getTransactionHistory(req.user.user_id)
     .then(function(transactions){
-      res.render('history', { tickerCards: req.tickerCards, transactions: transactions, title: 'History' });
+      res.render('history', { tickerCards: req.tickerCards, user: req.user,transactions: transactions, title: 'History' });
     });
 
 });
