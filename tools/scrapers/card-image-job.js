@@ -89,7 +89,23 @@ var lookup = {
   "From the Vault: Exiled" : "V09"
 };
 
-var findMultiverseId = function(cardName, setName, callback) {
-  console.log(allSets[lookup[setName]]).cards.filter(function(card){ return cardName === card.name});
-}(null, "Alpha Edition", "Zombie Master");
+module.exports = function(card, callback) {
+  var setName = card.name,
+    cardName = card.set;
+  var setCode = lookup[setName];
+  if(!setCode){
+    callback(null, 0);
+  } else {
+    var matches = allSets[setCode].cards.filter(function (card) {
+      return cardName === card.name
+    });
+
+    var match = matches[0];
+
+    if(match && match.hasOwnProperty('miltiverseid'))
+      callback(null, match.hasOwnProperty());
+  }
+};
+
+
 

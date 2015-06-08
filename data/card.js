@@ -11,7 +11,8 @@ var card = function(){
              `currency`, \
              `cost_min`, \
              `cost_mid`, \
-             `cost_max`\
+             `cost_max`,\
+             `image_url\
            ) VALUES ";
 
     var values = [];
@@ -24,12 +25,15 @@ var card = function(){
             " + card.min + ", \
             " + card.mid + ", \
             " + card.max + " \
+            '"+card.imageUrl+"'\
           )");
       })
 
     var onDuplicate = ' on duplicate key update cost_mid=' + card.mid;
 
-    return query + values.join(", ") + onDuplicate;
+    console.log(query + values.join(", "));
+
+    return query + values.join(", ");
   };
 
   var getSets = function(){

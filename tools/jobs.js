@@ -1,5 +1,5 @@
 require("coffee-script/register");
-var tcg = require('./scrapers/tcgscraper.coffee');
+var tcg = require('./scrapers/tcgscraper.js');
 //var imageJob = require('./scrapers/imagescraper.coffee');
 
 tcg()
