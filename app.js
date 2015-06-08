@@ -115,7 +115,7 @@ passport.serializeUser(function(user, done) {
 });
 
 passport.deserializeUser(function(id, done) {
-  userService.getUser(2)
+  userService.getUser(id)
     .then(function(user){done(null, user)})
 });
 
