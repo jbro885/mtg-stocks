@@ -3,6 +3,11 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   background-color: transparent ;
 }
+
+.navbar-default {
+  border-radius: 0 0 4px 4px !important;
+}
+
 .home {
   background: url('/images/coverpage.jpg') no-repeat top center fixed;
   -webkit-background-size: cover;
@@ -21,12 +26,14 @@ body {
   border: none;
 }
 .signup-cta{
-  background-color: black;
+  background-color: #222;
   margin-top: 300px;
   width: 500px;
   padding: 50px;
   margin-left: auto;
+  border-radius: 5px;
   margin-right: auto;
+  border: 1px solid #444;
 }
 
 a {
