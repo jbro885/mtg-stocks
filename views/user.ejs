@@ -59,8 +59,7 @@
         <img src="<%-card.image_url%>" alt="<%-card.card_name%>" class="thumbnail" style="position:absolute;">
         <% if (card.tags !== undefined) { %>
         <% for(var j=0; j<card.tags.length; j++) { %>
-        <span style="padding: 2px; position:relative; z-index: 10; top: 30px;
-            border-radius: 5px; background-color: aquamarine; cursor: pointer;"><%= card.tags[j] %></span>
+        <span class="label label-default" style="position:relative; z-index: 10; top: 30px; cursor: pointer;"><%= card.tags[j] %></span>
         <% } %>
         <% } %>
       </div>
