@@ -1,17 +1,34 @@
 <% page = "Leaderboard" %>
 <% include header %>
 <h1>Leaderboard</h1>
-<p>What is your standing and who are at the top.</p>
+<p>Top 10 Stock Holders.</p>
 
-<ul>
+<table id="leader_table" class="table table-striped">
+  <thead>
+  <tr>
+    <th>Stock Member</th>
+    <th>Net Worth</th>
+    <th>Balance</th>
+    <th>Total Cards</th>
+  </tr>
+  </thead>
+  <tbody>
+
   <% for(var i=0; i<leaderList.length; i++) {
-    var leader = leaderList[i];
+    var leader =  leaderList[i];
   %>
-  <li>
-    name: <%-leader.username %> <br/>
-    cost: <%-leader.balance %> <br/>
-  </li>
-  <% } %>
-</ul>
+
+  <tr>
+    <td><%-leader.username %></td>
+    <td><%-money(leader.netWorth) %></td>
+    <td><%-money(leader.balance) %></td>
+    <td><%-leader.totalCards %></td>
+  </tr>
+
+  <%}%>
+
+  </tbody>
+</table>
+
 
 <% include footer %>

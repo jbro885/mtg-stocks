@@ -3,7 +3,6 @@ var Promise = require('bluebird');
 
 var user = function(){
 
-  var getLeaders;
   var addUser = function(name, password){
     var defer = Promise.pending();
     var connection = db();
@@ -103,7 +102,7 @@ var user = function(){
     var connection = db();
     connection.connect();
     var queryString = " \
-    SELECT u.user_id, u.username, IFNULL(SUM(p.quantity * c.cost_mid), 0) + u.balance as balance \
+    SELECT u.user_id, u.username, SUM(p.quantity) as totalCards, u.balance as balance, IFNULL(SUM(p.quantity * c.cost_mid), 0) + u.balance as netWorth \
     FROM user u \
     LEFT OUTER JOIN portfolio p on u.user_id = p.user_id \
     LEFT OUTER JOIN card c on p.cards_id = c.cards_id \
