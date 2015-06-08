@@ -110,23 +110,25 @@ app.get('/logout', function(req, res){
   res.redirect('/');
 });
 
-passport.serializeUser(function(user, done) {
-  done(null, user.user_id);
+passport.serializeUser(function(u, done) {
+  console.log(u);
+  done(null, u.user_id);
 });
 
 passport.deserializeUser(function(id, done) {
+  console.log(id);
   userService.getUser(id)
-    .then(function(user){done(null, user)})
+    .then(function(u){done(null, u)})
 });
 
 passport.use(new LocalStrategy(
   function(username, password, done) {
     return userService.getUserByUsername(username)
-      .then(function(user){
-        if(user == undefined || user.user_password !== password){
+      .then(function(u){
+        if(u == undefined || u.user_password !== password){
           done('Log in failed', null);
         } else {
-          done(null, user);
+          done(null, u);
         }
       });
   }
