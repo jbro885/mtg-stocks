@@ -110,6 +110,10 @@ div.dc-chart {
   color: rgb(117, 168, 117);
 }
 
+g.stack-list {
+  fill: rgb(130, 207, 93);
+  stroke: rgb(130, 207, 93);
+}
 
 .tickercontainer{
   width:100%;

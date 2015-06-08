@@ -18,13 +18,16 @@
   <% for(var i=0; i<transactions.length; i++) {
     var transaction =  transactions[i];
   %>
-    <tr>
+    <tr
+      <% if ( transaction.transaction_type === "buy"){ %> class="success" <% } %>
+      <% if ( transaction.transaction_type === "sell"){ %> class="warning" <% } %>
+      >
       <td><%-transaction.set_name%></td>
       <td><%-transaction.card_name%></td>
       <td><%-formatTime(transaction.create_datetime)%></td>
       <td><%-transaction.transaction_type%></td>
       <td><%-transaction.quantity%></td>
-      <td><%-money(transaction.quantity * transaction.price) %></td>
+      <td><%- money(transaction.quantity * transaction.price) %></td>
     </tr>
   <%}%>
   </tbody>
