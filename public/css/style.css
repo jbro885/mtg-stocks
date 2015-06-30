@@ -148,3 +148,8 @@ ul.newsticker li a{vertical-align:middle;line-height:21px}
 #mc_embed_signup input.email {
   width: 95% !important;
 }
+
+#mc_embed_signup .button {
+  background-color: #c1c1c1 !important;
+  color: #222 !important;
+}
