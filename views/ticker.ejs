@@ -1,0 +1,20 @@
+<ul id='webTicker' style="display:none;">
+
+<% for(var i=0; i<tickerCards.length && i < 100; i++) {
+  var tickerCard =  tickerCards[i];
+  var gain = Number(tickerCard.percent_change);
+  var arrowDir = "arrowpos", arrow = "&#9650";
+  if(gain < 0) {
+    arrowDir = "arrowneg";
+    arrow = "&#9660";
+  }
+%>
+        <li>
+          <span class='setsprite setsprite-10e' title='<%-tickerCard.set_name%>'>&nbsp;</span>&nbsp;
+          <%-tickerCard.card_name%>
+          <span class='<%-arrowDir%>'><%-arrow%></span>
+          <%-money(tickerCard.cost_mid)%>
+          (<span class='<%-arrowDir%>'><%-gain%>%</span>)
+        </li>
+      <%}%>
+   </ul>
