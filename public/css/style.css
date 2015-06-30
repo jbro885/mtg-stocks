@@ -135,3 +135,16 @@ g.stack-list {
 ul.newsticker{  transition-timing-function: linear; position:relative;font:bold 10px Verdana;list-style-type:none;margin:0;padding:0}
 ul.newsticker li{float:left;margin:0;padding-right:25px}
 ul.newsticker li a{vertical-align:middle;line-height:21px}
+
+#mc_embed_signup {
+  background-color: #222 !important;
+}
+
+#mc_embed_signup label {
+  color: #eee;
+  font-weight: normal;
+}
+
+#mc_embed_signup input.email {
+  width: 95% !important;
+}
