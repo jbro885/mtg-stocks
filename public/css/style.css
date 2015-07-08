@@ -57,6 +57,7 @@ a {
 .cards-list .thumbnail {
     max-width: 200px;
     width: 100%;
+  height: 274px;
 }
 .card-name {
     color: #000;
