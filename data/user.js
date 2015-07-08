@@ -91,7 +91,7 @@ var user = function(){
     var queryString = "SELECT th.*, s.set_name, c.card_name \
     from transaction_history th \
     join card c on th.cards_id = c.cards_id \
-    join `set` s on c.set_id = s.set_id \
+    join `set` s on c.set_code = s.set_code \
     where user_id = ?";
 
     return runQuery(queryString, id);
