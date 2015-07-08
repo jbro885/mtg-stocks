@@ -66,12 +66,12 @@ var tickerCards = function(req, res, next){
     });
 };
 
-app.use('/', tickerCards, index);
+app.use('/', index);
 app.use('/', signup);
-app.use('/', ensureAuthenticated, tickerCards, userRoute);
-app.use('/', ensureAuthenticated, tickerCards, cards);
-app.use('/', ensureAuthenticated, tickerCards, leaders);
-app.use('/', ensureAuthenticated, tickerCards, history);
+app.use('/', ensureAuthenticated, userRoute);
+app.use('/', ensureAuthenticated, cards);
+app.use('/', ensureAuthenticated, leaders);
+app.use('/', ensureAuthenticated, history);
 
 app.get('/logout', function(req, res){
   req.logout();
