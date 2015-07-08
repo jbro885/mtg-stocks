@@ -17,6 +17,7 @@ var userRoute = require('./routes/user');
 var cards = require('./routes/cards');
 var leaders = require('./routes/leaders');
 var history = require('./routes/history');
+var signup = require('./routes/signup');
 
 var app = express();
 
@@ -66,6 +67,7 @@ var tickerCards = function(req, res, next){
 };
 
 app.use('/', tickerCards, index);
+app.use('/', signup);
 app.use('/', ensureAuthenticated, tickerCards, userRoute);
 app.use('/', ensureAuthenticated, tickerCards, cards);
 app.use('/', ensureAuthenticated, tickerCards, leaders);

@@ -4,36 +4,34 @@ var Promise = require('bluebird');
 var card = function(){
 
   var addCardQuery = function(cards) {
-    var query = "INSERT INTO `card` \
-           (\
-             `set_id`, \
-             `card_name`, \
-             `currency`, \
-             `cost_min`, \
-             `cost_mid`, \
-             `cost_max`,\
-             `image_url\
-           ) VALUES ";
+    var query = "INSERT INTO `card` ("+
+            " `set_code`, " +
+            " `card_name`, " +
+            " `currency`, " +
+            " `cost_min`, " +
+            " `cost_mid`, " +
+            " `cost_max`," +
+            " `image_url`" +
+          " ) VALUES ";
 
     var values = [];
     cards.forEach(function(card) {
       if (card)
-        values.push("(\
-              "+card.set+", \
-          \"" + card.name + "\", \
-            \"$\", \
-            " + card.min + ", \
-            " + card.mid + ", \
-            " + card.max + " \
-            '"+card.imageUrl+"'\
-          )");
-      })
+        values.push("("+
+              "\""+card.set+"\", "+
+          "\"" + card.name + "\", "+
+            "\"$\", "+
+             card.min + ", "+
+             card.mid + ", "+
+             card.max + ", "+
+            "\""+card.imageUrl+"\")");
+      });
 
     var onDuplicate = ' on duplicate key update cost_mid=' + card.mid;
 
     console.log(query + values.join(", "));
 
-    return query + values.join(", ");
+    return query + values.join(", \n");
   };
 
   var getSets = function(){
@@ -53,18 +51,16 @@ var card = function(){
     return defer.promise;
   };
 
-  var addSet = function(name){
+  var addSet = function(name, code){
     var connection = db();
     connection.connect();
 
     connection.query(
       "INSERT INTO `set` \
       (\
-        `set_name` \
-      ) VALUES (\
-        " + name + "\
-      )"
-      , function(err, inserted) {
+        `set_name`, `set_code` \
+      ) VALUES (?, ?)"
+      , [name, code], function(err, inserted) {
         if (err) throw err;
 
         console.log('The solution is: ', rows[0].solution);
@@ -73,7 +69,7 @@ var card = function(){
     connection.end();
   };
 
-  var batchAddSets = function(names) {
+  var batchAddSets = function(sets) {
     var defer = Promise.pending();
 
     var connection = db();
@@ -81,11 +77,11 @@ var card = function(){
 
     var query = "INSERT INTO `set` \
       (\
-        `set_name` \
+        `set_name`, `set_code` \
       ) VALUES ";
-    for(var i in names) {
+    for(var i in sets) {
       if(i != 0) query += ",";
-      query += "(\"" + names[i] + "\")";
+      query += "(\"" + sets[i].name +'\",\"'+ sets[i].code  + "\")";
     }
 
     console.log(query);

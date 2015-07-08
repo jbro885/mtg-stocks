@@ -39,21 +39,7 @@ body {
 a {
   'color: #00B7FF;'
 }
-.user-info {
-  margin: 0;
-  padding: 5px;
-  float: right;
-}
 
-.user-info li {
-	margin: 0;
-	padding: 0 5px;
-	list-style: none;
-	display: inline;
-}
-.user-info li:first-child {
-	border: 0;
-}
 .box-quantity {
 	width: 75px;
 	margin-right: 10px;
@@ -152,4 +138,43 @@ ul.newsticker li a{vertical-align:middle;line-height:21px}
 #mc_embed_signup .button {
   background-color: #c1c1c1 !important;
   color: #222 !important;
+}
+
+.user-info {
+  margin: 0;
+  float: right;
+}
+
+.user-info h4 {
+  line-height: 30px;
+}
+
+.user-info ul {
+  margin-bottom: 0;
+  position: relative;
+  top: 8px;
+  font-size: 8pt;
+}
+
+.user-info li {
+  margin: 0;
+  padding: 0 5px;
+  list-style: none;
+  display: inline;
+}
+.user-info li:first-child {
+  border: 0;
+}
+
+.user-info h4, .user-info ul, .user-info div.dc-chart {
+  display: inline-block;
+}
+
+.user-info div.dc-chart {
+  position: relative;
+  top: 10px;
+}
+
+.user-info li {
+  display: block;
 }

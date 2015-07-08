@@ -7,8 +7,8 @@ var user = function(){
     var defer = Promise.pending();
     var connection = db();
     connection.connect();
-    var data = [{'username':name},{'password':password},{'balance':50}];
-    connection.query('INSERT INTO user SET ?', data,  function(err, result) {
+    var data = [name, password, 50];
+    connection.query('INSERT INTO user (username, user_password, balance) VALUES (?, ?, ?)', data,  function(err, result) {
       connection.end();
       if (!err) {
         defer.fulfill(result);

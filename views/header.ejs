@@ -45,14 +45,18 @@
         <li<% if (title === 'Portfolio') { %> class="active"<% } %>><a href="/user">Portfolio</a></li>
         <li<% if (title === 'History') { %> class="active"<% } %>><a href="/history">History</a></li>
         <li<% if (title === 'Leaderboard') { %> class="active"<% } %>><a href="/leaders">Leaderboard</a></li>
-        <li class="divider"></li>
+        <li><a href="/logout">Logout</a></li>
       </ul>
-      <ul class="user-info">
-        <li><strong>Welcome <%-user.username%></strong></li>
-        <li><strong>Your Balance:</strong> <%-money(user.balance)%></li>
-        <li><strong>Your Net Worth:</strong> <%-money(user.balance + user.card_balance) %></li>
-        <li><% include netWorthGraph %></li>
-      </ul>
+      <div class="user-info">
+        <div class="navbar-header">
+          <h4><%-user.username%></h4>
+        </div>
+        <ul>
+          <li><strong>Balance:</strong> <%-money(user.balance)%></li>
+          <li><strong>Net Worth:</strong> <%-money(user.balance + user.card_balance)%></li>
+        </ul>
+        <% include netWorthGraph %>
+      </div>
       <% } else { %>
         <form class="navbar-form navbar-right" role="search" action="/login" method="post">
           <div class="form-group">

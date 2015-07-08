@@ -1,0 +1,24 @@
+<% page = "Signup" %>
+<% include header %>
+  <link rel="stylesheet" href="/css/signup.css">
+  <form class="form-signup" method="post" action="/signup">
+    <h2 class="form-signup-heading">Sign up</h2>
+    <label for="email" class="sr-only">Email address</label>
+    <input type="email" name="email" class="form-control" placeholder="Email address" required="" autofocus="">
+    <label for="email" class="sr-only">User</label>
+    <input type="text" name="name" class="form-control" placeholder="User name" required="">
+    <label for="password" class="sr-only">Password</label>
+    <input type="password" name="password" class="form-control" placeholder="Password" required="">
+    <label for="passwordRetype" class="sr-only">Password</label>
+    <input type="password" name="passwordRetype" class="form-control" placeholder="Retype Password" required="">
+
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
+  </form>
+
+  <% if (done) { %>
+    <p><%=email %></p>
+    <p><%=password %></p>
+    <p><%=passwordRetype%></p>
+  <% } %>
+
+<% include footer %>
